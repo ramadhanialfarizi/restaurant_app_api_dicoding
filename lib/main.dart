@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app_api_dicoding/app/model/data_source/remote_data_source.dart';
+import 'package:restaurant_app_api_dicoding/app/view/home_pages/view_model/home_provider.dart';
 import 'package:restaurant_app_api_dicoding/core/routes.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) =>
+              HomeProvider(remoteDataSource: RemoteDataSource()),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
