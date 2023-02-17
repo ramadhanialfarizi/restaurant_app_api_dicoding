@@ -59,9 +59,9 @@ class _HomePagesState extends State<HomePages> {
                     return ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: restaurant.restoList?.restaurants.length,
+                      itemCount: restaurant.resto.length,
                       itemBuilder: (context, index) {
-                        var initial = restaurant.restoList?.restaurants[index];
+                        var initial = restaurant.resto[index];
                         return InkWell(
                           onTap: () {},
                           child: Card(
@@ -73,7 +73,7 @@ class _HomePagesState extends State<HomePages> {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(20.0),
                                     child: Image.network(
-                                      'https://restaurant-api.dicoding.dev/images/small/${initial?.pictureId}',
+                                      'https://restaurant-api.dicoding.dev/images/small/${initial.pictureId}',
                                       scale: 3.9,
                                     ),
                                   ),
@@ -86,7 +86,7 @@ class _HomePagesState extends State<HomePages> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '${initial?.name}',
+                                          '${initial.name}',
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -103,7 +103,7 @@ class _HomePagesState extends State<HomePages> {
                                             const SizedBox(
                                               width: 5,
                                             ),
-                                            Text('${initial?.city}'),
+                                            Text('${initial.city}'),
                                           ],
                                         ),
                                         const SizedBox(
@@ -117,7 +117,7 @@ class _HomePagesState extends State<HomePages> {
                                               width: 5,
                                             ),
                                             Text(
-                                              '${initial?.rating}',
+                                              '${initial.rating}',
                                             ),
                                           ],
                                         )

@@ -11,17 +11,20 @@ class HomeProvider extends ChangeNotifier {
   //   getAllRestaurantList();
   // }
 
+  List<Restaurant> resto = [];
+
   RestaurantList? _restaurantList;
   //late ResultState _state;
 
   RestaurantList? get restoList => _restaurantList;
   //ResultState get state => _state;
 
-  Future<dynamic> getAllRestaurantList() async {
+  Future<void> getAllRestaurantList() async {
     try {
       final source = await remoteDataSource.getRestaurantList();
+      resto = source.restaurants.toList();
       notifyListeners();
-      return _restaurantList = source;
+      //return _restaurantList = source;
     } catch (e) {
       rethrow;
     }
