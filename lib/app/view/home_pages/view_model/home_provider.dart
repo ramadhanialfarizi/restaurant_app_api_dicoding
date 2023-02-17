@@ -5,11 +5,11 @@ import 'package:restaurant_app_api_dicoding/app/model/restaurant_list_model.dart
 //enum ResultState { loading, noData, hasData, error }
 
 class HomeProvider extends ChangeNotifier {
-  final RemoteDataSource remoteDataSource;
+  final RemoteDataSource remoteDataSource = RemoteDataSource();
 
-  HomeProvider({required this.remoteDataSource}) {
-    getAllRestaurantList();
-  }
+  // HomeProvider({required this.remoteDataSource}) {
+  //   getAllRestaurantList();
+  // }
 
   RestaurantList? _restaurantList;
   //late ResultState _state;
@@ -23,7 +23,7 @@ class HomeProvider extends ChangeNotifier {
       notifyListeners();
       return _restaurantList = source;
     } catch (e) {
-      print(e);
+      rethrow;
     }
   }
 }

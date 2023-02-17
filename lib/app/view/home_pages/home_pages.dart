@@ -3,8 +3,22 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/view_model/home_provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/widget/search_button.dart';
 
-class HomePages extends StatelessWidget {
+class HomePages extends StatefulWidget {
   const HomePages({super.key});
+
+  @override
+  State<HomePages> createState() => _HomePagesState();
+}
+
+class _HomePagesState extends State<HomePages> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      final prov = Provider.of<HomeProvider>(context, listen: false);
+      prov.getAllRestaurantList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +55,7 @@ class HomePages extends StatelessWidget {
                   height: 40,
                 ),
                 Consumer<HomeProvider>(
-                  builder: (context, restaurant, child) {
+                  builder: (_, restaurant, __) {
                     return ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
