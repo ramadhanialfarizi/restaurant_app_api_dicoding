@@ -27,10 +27,10 @@ class RemoteDataSource {
 
   Future<RestaurantDetailModel> getDetailRestaurant(String id) async {
     try {
-      var response = await Dio().get('$_baseUrl/detail/:$id');
-      print(response.data);
+      var response = await Dio().get('$_baseUrl/detail/$id');
       if (response.statusCode == 200) {
-        return RestaurantDetailModel.fromJson(jsonDecode(response.data));
+        print(response.data);
+        return RestaurantDetailModel.fromJson(response.data);
       } else {
         //print(response.statusMessage);
         throw Exception();
