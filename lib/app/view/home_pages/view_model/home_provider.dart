@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app_api_dicoding/app/model/data_source/remote_data_source.dart';
+import 'package:restaurant_app_api_dicoding/app/source/data_source/remote_data_source.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/restaurant_list_model.dart';
 
 import '../../../../core/enum.dart';

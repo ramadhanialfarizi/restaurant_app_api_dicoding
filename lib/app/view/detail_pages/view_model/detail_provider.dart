@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/model/restaurant_detail_model.dart';
 import 'package:restaurant_app_api_dicoding/core/enum.dart';
 
-import '../../../model/data_source/remote_data_source.dart';
+import '../../../source/data_source/remote_data_source.dart';
 
 class DetailProvider extends ChangeNotifier {
   final RemoteDataSource remoteDataSource = RemoteDataSource();
