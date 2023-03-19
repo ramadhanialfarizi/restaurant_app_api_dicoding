@@ -11,22 +11,20 @@ class DetailProvider extends ChangeNotifier {
   ResultState? state;
   String message = '';
 
-  Future<void> getDetailRestaurant(String id) async {
+  Future<void> getDetailRestaurant(String? id) async {
     try {
       final source = await remoteDataSource.getDetailRestaurant(id);
-      // state = ResultState.loading;
-      // notifyListeners();
-      // if (source.restaurant == null) {
-      //   state = ResultState.noData;
-      //   message = 'Empty Data';
-      //   notifyListeners();
-      //   // return _message = 'Empty Data';
-      // } else {
-      //   state = ResultState.hasData;
-      //   restaurantDetailModel = source;
-      //   notifyListeners();
-      //   // return _restaurantList = source;
-      // }
+      state = ResultState.loading;
+      notifyListeners();
+      if (source.restaurant == null) {
+        state = ResultState.noData;
+        message = 'Empty Data';
+        notifyListeners();
+      } else {
+        state = ResultState.hasData;
+        restaurantDetailModel = source;
+        notifyListeners();
+      }
     } catch (e) {
       state = ResultState.error;
       message = 'Error --> $e';

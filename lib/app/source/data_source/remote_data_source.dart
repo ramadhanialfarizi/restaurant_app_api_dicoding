@@ -8,7 +8,6 @@ import '../../view/detail_pages/model/restaurant_detail_model.dart';
 
 class RemoteDataSource {
   final _baseUrl = 'https://restaurant-api.dicoding.dev';
-  String? query;
 
   Future<RestaurantListModel?> getRestaurantList() async {
     try {
@@ -25,7 +24,7 @@ class RemoteDataSource {
     }
   }
 
-  Future<RestaurantDetailModel> getDetailRestaurant(String id) async {
+  Future<RestaurantDetailModel> getDetailRestaurant(String? id) async {
     try {
       var response = await Dio().get('$_baseUrl/detail/$id');
       if (response.statusCode == 200) {
@@ -40,19 +39,19 @@ class RemoteDataSource {
     }
   }
 
-  // Future<RestaurantSearch> getRestaurantSearch() async {
-  //   var response = await Dio().get('$_baseUrl/search?q=$query');
+  Future<RestaurantSearch> getRestaurantSearch(String? query) async {
+    var response = await Dio().get('$_baseUrl/search?q=$query');
 
-  //   try {
-  //     if (response.statusCode == 200) {
-  //       return RestaurantSearch.fromJson(jsonDecode(response.data));
-  //     } else {
-  //       throw Exception();
-  //     }
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
+    try {
+      if (response.statusCode == 200) {
+        return RestaurantSearch.fromJson(response.data);
+      } else {
+        throw Exception();
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 
   // Future userReview() async {
   //   var response = await Dio().post('$_baseUrl/review');
