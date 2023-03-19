@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view_model/detail_provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/view_model/home_provider.dart';
-import 'package:restaurant_app_api_dicoding/app/view/home_pages/widget/search_button.dart';
+
+import '../../../../core/enum.dart';
+import 'widget/search_button.dart';
 
 class HomePages extends StatefulWidget {
   const HomePages({super.key});
@@ -14,10 +17,11 @@ class _HomePagesState extends State<HomePages> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
-      final prov = Provider.of<HomeProvider>(context, listen: false);
-      prov.getAllRestaurantList();
-    });
+    getListRestaurant();
+  }
+
+  void getListRestaurant() {
+    context.read<HomeProvider>().getAllRestaurantList();
   }
 
   @override
@@ -64,11 +68,18 @@ class _HomePagesState extends State<HomePages> {
                       return ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: restaurant.restoList.restaurants.length,
+                        itemCount: restaurant.restoList?.restaurants.length,
                         itemBuilder: (context, index) {
-                          var initial = restaurant.restoList.restaurants[index];
+                          var initial =
+                              restaurant.restoList?.restaurants[index];
                           return InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              var restaurantID = initial.id;
+                              //print(restaurantID);
+                              context
+                                  .read<DetailProvider>()
+                                  .getDetailRestaurant(restaurantID);
+                            },
                             child: Card(
                               elevation: 0,
                               child: Row(
@@ -78,7 +89,7 @@ class _HomePagesState extends State<HomePages> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20.0),
                                       child: Image.network(
-                                        'https://restaurant-api.dicoding.dev/images/small/${initial.pictureId}',
+                                        'https://restaurant-api.dicoding.dev/images/medium/${initial?.pictureId}',
                                         scale: 3.9,
                                       ),
                                     ),
@@ -91,7 +102,7 @@ class _HomePagesState extends State<HomePages> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            initial.name.toString(),
+                                            initial!.name.toString(),
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                             ),

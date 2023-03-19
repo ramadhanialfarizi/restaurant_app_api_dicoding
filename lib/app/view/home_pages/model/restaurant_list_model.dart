@@ -1,5 +1,5 @@
-class RestaurantList {
-  RestaurantList({
+class RestaurantListModel {
+  RestaurantListModel({
     required this.error,
     required this.message,
     required this.count,
@@ -11,7 +11,8 @@ class RestaurantList {
   int count;
   List<Restaurant> restaurants;
 
-  factory RestaurantList.fromJson(Map<String, dynamic> json) => RestaurantList(
+  factory RestaurantListModel.fromJson(Map<String, dynamic> json) =>
+      RestaurantListModel(
         error: json["error"],
         message: json["message"],
         count: json["count"],

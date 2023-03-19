@@ -1,27 +1,22 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:dio/dio.dart';
-import 'package:restaurant_app_api_dicoding/app/model/restaurant_detail_model.dart';
-import 'package:restaurant_app_api_dicoding/app/model/restaurant_list_model.dart';
-import 'package:restaurant_app_api_dicoding/app/model/restaurant_search_model.dart';
+import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/restaurant_list_model.dart';
+import 'package:restaurant_app_api_dicoding/app/view/search_pages/model/restaurant_search_model.dart';
+
+import '../../view/detail_pages/model/restaurant_detail_model.dart';
 
 class RemoteDataSource {
   final _baseUrl = 'https://restaurant-api.dicoding.dev';
-  String? id;
   String? query;
 
-  RemoteDataSource({this.id, this.query});
-
-  Future<RestaurantList> getRestaurantList() async {
-    var response = await Dio().get('$_baseUrl/list');
-
-    log(response.data);
-
+  Future<RestaurantListModel?> getRestaurantList() async {
     try {
+      var response = await Dio().get('$_baseUrl/list');
       if (response.statusCode == 200) {
-        //var data = jsonDecode(response.data)["restaurants"];
-        return RestaurantList.fromJson(jsonDecode(response.data));
+        //print(response.data);
+        var result = RestaurantListModel.fromJson(response.data);
+        return result;
       } else {
         throw Exception('failed to load data');
       }
@@ -30,13 +25,14 @@ class RemoteDataSource {
     }
   }
 
-  Future<RestaurantDetail> getDetailRestaurant() async {
-    var response = await Dio().get('$_baseUrl/detail/:$id');
-
+  Future<RestaurantDetailModel> getDetailRestaurant(String id) async {
     try {
+      var response = await Dio().get('$_baseUrl/detail/:$id');
+      print(response.data);
       if (response.statusCode == 200) {
-        return RestaurantDetail.fromJson(jsonDecode(response.data));
+        return RestaurantDetailModel.fromJson(jsonDecode(response.data));
       } else {
+        //print(response.statusMessage);
         throw Exception();
       }
     } catch (e) {
@@ -44,21 +40,21 @@ class RemoteDataSource {
     }
   }
 
-  Future<RestaurantSearch> getRestaurantSearch() async {
-    var response = await Dio().get('$_baseUrl/search?q=$query');
+  // Future<RestaurantSearch> getRestaurantSearch() async {
+  //   var response = await Dio().get('$_baseUrl/search?q=$query');
 
-    try {
-      if (response.statusCode == 200) {
-        return RestaurantSearch.fromJson(jsonDecode(response.data));
-      } else {
-        throw Exception();
-      }
-    } catch (e) {
-      rethrow;
-    }
-  }
+  //   try {
+  //     if (response.statusCode == 200) {
+  //       return RestaurantSearch.fromJson(jsonDecode(response.data));
+  //     } else {
+  //       throw Exception();
+  //     }
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
-  Future userReview() async {
-    var response = await Dio().post('$_baseUrl/review');
-  }
+  // Future userReview() async {
+  //   var response = await Dio().post('$_baseUrl/review');
+  // }
 }

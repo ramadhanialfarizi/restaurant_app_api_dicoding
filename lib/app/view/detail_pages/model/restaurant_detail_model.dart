@@ -1,5 +1,5 @@
-class RestaurantDetail {
-  RestaurantDetail({
+class RestaurantDetailModel {
+  RestaurantDetailModel({
     required this.error,
     required this.message,
     required this.restaurant,
@@ -9,8 +9,8 @@ class RestaurantDetail {
   String message;
   Restaurant restaurant;
 
-  factory RestaurantDetail.fromJson(Map<String, dynamic> json) =>
-      RestaurantDetail(
+  factory RestaurantDetailModel.fromJson(Map<String, dynamic> json) =>
+      RestaurantDetailModel(
         error: json["error"],
         message: json["message"],
         restaurant: Restaurant.fromJson(json["restaurant"]),

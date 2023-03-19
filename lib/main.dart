@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view_model/detail_provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/view_model/home_provider.dart';
 import 'package:restaurant_app_api_dicoding/core/routes.dart';
 
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => HomeProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => DetailProvider(),
+        )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
