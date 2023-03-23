@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app_api_dicoding/app/view/detail_pages/model/add_review_model.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/model/restaurant_detail_model.dart';
 import 'package:restaurant_app_api_dicoding/core/enum.dart';
 
@@ -8,6 +9,7 @@ class DetailProvider extends ChangeNotifier {
   final RemoteDataSource remoteDataSource = RemoteDataSource();
 
   RestaurantDetailModel? restaurantDetailModel;
+  AddReviewModel? addReviewModel;
   ResultState? state;
   String message = '';
 
@@ -30,5 +32,10 @@ class DetailProvider extends ChangeNotifier {
       message = 'Error --> $e';
       notifyListeners();
     }
+  }
+
+  Future<void> addReview(String? id, String? name, String? review) async {
+    await remoteDataSource.addReviewUser(id, name, review);
+    notifyListeners();
   }
 }

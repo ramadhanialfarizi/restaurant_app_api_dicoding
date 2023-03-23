@@ -1,16 +1,15 @@
-class UserReviewModel {
-  UserReviewModel({
-    required this.error,
-    required this.message,
-    required this.customerReviews,
+class AddReviewModel {
+  AddReviewModel({
+    this.error,
+    this.message,
+    this.customerReviews,
   });
 
-  bool error;
-  String message;
-  List<CustomerReview> customerReviews;
+  bool? error;
+  String? message;
+  List<CustomerReview>? customerReviews;
 
-  factory UserReviewModel.fromJson(Map<String, dynamic> json) =>
-      UserReviewModel(
+  factory AddReviewModel.fromJson(Map<String, dynamic> json) => AddReviewModel(
         error: json["error"],
         message: json["message"],
         customerReviews: List<CustomerReview>.from(
@@ -21,7 +20,7 @@ class UserReviewModel {
         "error": error,
         "message": message,
         "customerReviews":
-            List<dynamic>.from(customerReviews.map((x) => x.toJson())),
+            List<dynamic>.from(customerReviews!.map((x) => x.toJson())),
       };
 }
 

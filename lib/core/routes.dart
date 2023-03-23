@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:restaurant_app_api_dicoding/app/view/authentication/view/signin_page.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view/detail_pages.dart';
 import 'package:restaurant_app_api_dicoding/app/view/onboarding/view/splash_screen.dart';
 import 'package:restaurant_app_api_dicoding/app/view/search_pages/view/search_pages.dart';
@@ -11,6 +12,9 @@ class AppRoutes {
       case '/':
         return CupertinoPageRoute(
             builder: (_) => const SplashScreen(), settings: settings);
+      case '/signin':
+        return CupertinoPageRoute(
+            builder: (_) => const SigninPages(), settings: settings);
       case '/home':
         return CupertinoPageRoute(
             builder: (_) => const HomePages(), settings: settings);
