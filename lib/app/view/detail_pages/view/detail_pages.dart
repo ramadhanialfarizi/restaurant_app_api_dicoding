@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view_model/detail_provider.dart';
+import 'package:restaurant_app_api_dicoding/app/view/favorite/model/add_favorite_model.dart';
 import 'package:restaurant_app_api_dicoding/core/enum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -67,8 +68,20 @@ class _DetailPagesState extends State<DetailPages> {
                         bottomRight: Radius.circular(30),
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30)),
-                    child: Image.network(
-                        'https://restaurant-api.dicoding.dev/images/large/${detailRestaurant.restaurantDetailModel?.restaurant.pictureId}'),
+                    child: Stack(
+                      children: [
+                        Image.network(
+                            'https://restaurant-api.dicoding.dev/images/large/${detailRestaurant.restaurantDetailModel?.restaurant.pictureId}'),
+                        // Positioned(
+                        //   top: 20,
+                        //   right: 20,
+                        //   child: IconButton(
+                        //     onPressed: () {},
+                        //     icon: Icon(Icons.favorite_outline),
+                        //   ),
+                        // ),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 18,
@@ -117,6 +130,37 @@ class _DetailPagesState extends State<DetailPages> {
                             Text(
                                 '${detailRestaurant.restaurantDetailModel?.restaurant.rating}'),
                           ],
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            var favorite = AddFavorite(
+                              restaurantID: detailRestaurant
+                                  .restaurantDetailModel?.restaurant.id,
+                              location: detailRestaurant
+                                  .restaurantDetailModel?.restaurant.city,
+                              name: detailRestaurant
+                                  .restaurantDetailModel?.restaurant.name,
+                              pictureID: detailRestaurant
+                                  .restaurantDetailModel?.restaurant.pictureId,
+                              rating: detailRestaurant
+                                  .restaurantDetailModel?.restaurant.rating,
+                            );
+                            context
+                                .read<DetailProvider>()
+                                .addFavorite(favorite);
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('add to favorite'),
+                                duration: Duration(milliseconds: 800),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.favorite),
+                          label: const Text('add to favorite'),
                         ),
                         const SizedBox(
                           height: 30,

@@ -53,19 +53,32 @@ class _SidebarState extends State<Sidebar> {
               ),
             ),
           ),
-          // ListTile(
-          //   title: const Text(
-          //     'Your Profile',
-          //     style: TextStyle(
-          //       fontWeight: FontWeight.bold,
-          //       fontSize: 15,
-          //     ),
-          //   ),
-          //   onTap: () {
-          //     // Update the state of the app.
-          //     Navigator.of(context).pushNamed('/profile');
-          //   },
-          // ),
+          ListTile(
+            title: const Text(
+              'Home',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
+            ),
+            onTap: () {
+              // Update the state of the app.
+              Navigator.of(context).pushReplacementNamed('/home');
+            },
+          ),
+          ListTile(
+            title: const Text(
+              'Favorite',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
+            ),
+            onTap: () {
+              // Update the state of the app.
+              Navigator.of(context).pushReplacementNamed('/favorite');
+            },
+          ),
           const SizedBox(
             height: 15,
           ),

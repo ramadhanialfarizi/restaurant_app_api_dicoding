@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/view_model/auth_provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view_model/detail_provider.dart';
+import 'package:restaurant_app_api_dicoding/app/view/favorite/view_model/favorite_provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/view_model/home_provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/search_pages/view_model/search_provider.dart';
 import 'package:restaurant_app_api_dicoding/core/routes.dart';
@@ -33,9 +34,13 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => AuthProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FavoriteProvider(),
+        ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           // This is the theme of your application.

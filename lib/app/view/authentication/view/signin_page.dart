@@ -18,19 +18,15 @@ class _SigninPagesState extends State<SigninPages> {
   SharedPreferences? loginUser;
   bool? user;
 
-  void checkLogin(context) async {
+  void login(context) async {
     loginUser = await SharedPreferences.getInstance();
     user = loginUser?.getBool('login') ?? false;
-
-    if (user == true) {
-      Navigator.of(context).pushReplacementNamed('/home');
-    }
   }
 
   @override
   void initState() {
     super.initState();
-    checkLogin(context);
+    login(context);
   }
 
   @override

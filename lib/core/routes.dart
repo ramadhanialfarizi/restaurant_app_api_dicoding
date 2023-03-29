@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/view/signin_page.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view/detail_pages.dart';
+import 'package:restaurant_app_api_dicoding/app/view/favorite/view/favorite_page.dart';
 import 'package:restaurant_app_api_dicoding/app/view/onboarding/view/splash_screen.dart';
 import 'package:restaurant_app_api_dicoding/app/view/search_pages/view/search_pages.dart';
 
@@ -24,6 +25,9 @@ class AppRoutes {
       case '/detail':
         return CupertinoPageRoute(
             builder: (_) => const DetailPages(), settings: settings);
+      case '/favorite':
+        return CupertinoPageRoute(
+            builder: (_) => const FavoritePages(), settings: settings);
     }
     return null;
   }
