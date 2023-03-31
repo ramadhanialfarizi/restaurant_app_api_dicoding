@@ -14,7 +14,7 @@ class FavoriteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteNote(int? id) async {
+  void deleteFavorite(int? id) async {
     await dbHelper.deleteFavorites(id);
     getAllFavorite();
   }

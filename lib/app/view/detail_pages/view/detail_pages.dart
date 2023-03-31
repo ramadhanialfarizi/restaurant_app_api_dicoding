@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view_model/detail_provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/favorite/model/add_favorite_model.dart';
+import 'package:restaurant_app_api_dicoding/app/view/favorite/view_model/favorite_provider.dart';
 import 'package:restaurant_app_api_dicoding/core/enum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -53,8 +54,8 @@ class _DetailPagesState extends State<DetailPages> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Consumer<DetailProvider>(
-          builder: (context, detailRestaurant, __) {
+        child: Consumer2<DetailProvider, FavoriteProvider>(
+          builder: (context, detailRestaurant, favorite, __) {
             if (detailRestaurant.state == ResultState.loading) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -136,30 +137,49 @@ class _DetailPagesState extends State<DetailPages> {
                         ),
                         ElevatedButton.icon(
                           onPressed: () {
-                            var favorite = AddFavorite(
-                              restaurantID: detailRestaurant
-                                  .restaurantDetailModel?.restaurant.id,
-                              location: detailRestaurant
-                                  .restaurantDetailModel?.restaurant.city,
-                              name: detailRestaurant
-                                  .restaurantDetailModel?.restaurant.name,
-                              pictureID: detailRestaurant
-                                  .restaurantDetailModel?.restaurant.pictureId,
-                              rating: detailRestaurant
-                                  .restaurantDetailModel?.restaurant.rating,
-                            );
-                            context
-                                .read<DetailProvider>()
-                                .addFavorite(favorite);
+                            if (detailRestaurant.isFavorite == false) {
+                              context.read<DetailProvider>().favoriteTap();
+                              var favorite = AddFavorite(
+                                restaurantID: detailRestaurant
+                                    .restaurantDetailModel?.restaurant.id,
+                                location: detailRestaurant
+                                    .restaurantDetailModel?.restaurant.city,
+                                name: detailRestaurant
+                                    .restaurantDetailModel?.restaurant.name,
+                                pictureID: detailRestaurant
+                                    .restaurantDetailModel
+                                    ?.restaurant
+                                    .pictureId,
+                                rating: detailRestaurant
+                                    .restaurantDetailModel?.restaurant.rating,
+                              );
+                              context
+                                  .read<DetailProvider>()
+                                  .addFavorite(favorite);
 
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('add to favorite'),
-                                duration: Duration(milliseconds: 800),
-                              ),
-                            );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('add to favorite'),
+                                  duration: Duration(milliseconds: 800),
+                                ),
+                              );
+                            } else {
+                              context.read<DetailProvider>().favoriteTap();
+                              context.read<DetailProvider>().removeFavorite(
+                                    detailRestaurant
+                                        .restaurantDetailModel?.restaurant.id,
+                                  );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('remove from favorite'),
+                                  duration: Duration(milliseconds: 800),
+                                ),
+                              );
+                            }
                           },
-                          icon: const Icon(Icons.favorite),
+                          icon: (detailRestaurant.isFavorite == true)
+                              ? const Icon(Icons.favorite)
+                              : const Icon(Icons.favorite_outline),
                           label: const Text('add to favorite'),
                         ),
                         const SizedBox(

@@ -66,4 +66,14 @@ class DBHelper {
       whereArgs: [id],
     );
   }
+
+  Future<void> removeFavoriteFromDetail(String? restaurantID) async {
+    final db = await database;
+
+    await db.delete(
+      _tableName,
+      where: 'restaurantID = ?',
+      whereArgs: [restaurantID],
+    );
+  }
 }

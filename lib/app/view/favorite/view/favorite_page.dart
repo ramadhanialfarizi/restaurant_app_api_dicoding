@@ -125,7 +125,7 @@ class _FavoritePagesState extends State<FavoritePages> {
                                           onPressed: () {
                                             context
                                                 .read<FavoriteProvider>()
-                                                .deleteNote(initial.id);
+                                                .deleteFavorite(initial.id);
 
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
