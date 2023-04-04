@@ -40,6 +40,8 @@ dependencies:
   shared_preferences: ^2.0.20
   sqflite: ^2.2.6
   path: ^1.8.2
+  flutter_local_notifications: ^11.0.0
+  rxdart: ^0.27.7
 
 dev_dependencies:
   flutter_test:
