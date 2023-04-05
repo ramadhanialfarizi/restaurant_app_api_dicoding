@@ -1,13 +1,34 @@
+import 'dart:io';
+
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/view_model/auth_provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view_model/detail_provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/favorite/view_model/favorite_provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/view_model/home_provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/search_pages/view_model/search_provider.dart';
+import 'package:restaurant_app_api_dicoding/core/background_services.dart';
 import 'package:restaurant_app_api_dicoding/core/routes.dart';
 
-void main() {
+import 'app/view/settings/view_model/schedule_provider.dart';
+import 'core/notification_helper.dart';
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final NotificationHelper notificationHelper = NotificationHelper();
+  final BackgroundServices service = BackgroundServices();
+
+  service.initializeIsolate();
+
+  if (Platform.isAndroid) {
+    await AndroidAlarmManager.initialize();
+  }
+  await notificationHelper.initNotification(flutterLocalNotificationsPlugin);
   runApp(
     const MyApp(),
   );
@@ -37,6 +58,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => FavoriteProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ScheduleProvider(),
         ),
       ],
       child: MaterialApp(

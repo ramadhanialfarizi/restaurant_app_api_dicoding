@@ -79,6 +79,19 @@ class _SidebarState extends State<Sidebar> {
               Navigator.of(context).pushReplacementNamed('/favorite');
             },
           ),
+          ListTile(
+            title: const Text(
+              'Settings',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
+            ),
+            onTap: () {
+              // Update the state of the app.
+              Navigator.of(context).pushReplacementNamed('/settings');
+            },
+          ),
           const SizedBox(
             height: 15,
           ),

@@ -4,6 +4,7 @@ import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view/detail_pa
 import 'package:restaurant_app_api_dicoding/app/view/favorite/view/favorite_page.dart';
 import 'package:restaurant_app_api_dicoding/app/view/onboarding/view/splash_screen.dart';
 import 'package:restaurant_app_api_dicoding/app/view/search_pages/view/search_pages.dart';
+import 'package:restaurant_app_api_dicoding/app/view/settings/view/setting_page.dart';
 
 import '../app/view/home_pages/view/home_pages.dart';
 
@@ -28,6 +29,9 @@ class AppRoutes {
       case '/favorite':
         return CupertinoPageRoute(
             builder: (_) => const FavoritePages(), settings: settings);
+      case '/settings':
+        return CupertinoPageRoute(
+            builder: (_) => const SettingPages(), settings: settings);
     }
     return null;
   }

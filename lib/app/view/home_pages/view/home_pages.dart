@@ -8,6 +8,7 @@ import 'package:restaurant_app_api_dicoding/core/global_widget/error.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/enum.dart';
+import '../../../../core/notification_helper.dart';
 import 'widget/search_button.dart';
 
 class HomePages extends StatefulWidget {
@@ -18,6 +19,8 @@ class HomePages extends StatefulWidget {
 }
 
 class _HomePagesState extends State<HomePages> {
+  final NotificationHelper notificationHelper = NotificationHelper();
+
   SharedPreferences? loginData;
   String userName = " ";
 
@@ -33,6 +36,7 @@ class _HomePagesState extends State<HomePages> {
     super.initState();
     getListRestaurant();
     initial();
+    //notificationHelper.configureSelectNotificationSubject(context, '/home');
   }
 
   void getListRestaurant() {
