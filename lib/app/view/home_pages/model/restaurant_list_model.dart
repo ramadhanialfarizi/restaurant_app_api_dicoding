@@ -1,15 +1,17 @@
-class RestaurantListModel {
-  RestaurantListModel({
+import 'package:equatable/equatable.dart';
+
+class RestaurantListModel extends Equatable {
+  const RestaurantListModel({
     required this.error,
     required this.message,
     required this.count,
     required this.restaurants,
   });
 
-  bool error;
-  String message;
-  int count;
-  List<Restaurant> restaurants;
+  final bool error;
+  final String message;
+  final int count;
+  final List<Restaurant> restaurants;
 
   factory RestaurantListModel.fromJson(Map<String, dynamic> json) =>
       RestaurantListModel(
@@ -26,6 +28,13 @@ class RestaurantListModel {
         "count": count,
         "restaurants": List<dynamic>.from(restaurants.map((x) => x.toJson())),
       };
+
+  @override
+  List<Object?> get props => [
+        error,
+        message,
+        count,
+      ];
 }
 
 class Restaurant {

@@ -44,6 +44,7 @@ dependencies:
   rxdart: ^0.27.7
   intl: ^0.18.0
   android_alarm_manager_plus: ^2.1.1
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +56,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  mockito: ^5.4.0
+  build_runner: ^2.3.3
+  sqflite_common_ffi: ^2.2.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
