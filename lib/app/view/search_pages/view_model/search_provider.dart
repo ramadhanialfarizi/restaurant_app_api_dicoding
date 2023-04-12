@@ -13,8 +13,8 @@ class SearchProvider extends ChangeNotifier {
 
   Future<void> getSearchListRestaurant(String? query) async {
     try {
-      final source = await remoteDataSource.getRestaurantSearch(query);
       state = ResultState.loading;
+      final source = await remoteDataSource.getRestaurantSearch(query);
       notifyListeners();
       if (source.restaurants == null) {
         state = ResultState.noData;

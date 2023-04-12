@@ -88,8 +88,11 @@ class _HomePagesState extends State<HomePages> {
                   Consumer<HomeProvider>(
                     builder: (context, restaurant, __) {
                       if (restaurant.state == ResultState.loading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
+                        return SizedBox(
+                          height: MediaQuery.of(context).size.height / 2.3,
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
                         );
                       } else if (restaurant.state == ResultState.hasData) {
                         return ListView.builder(

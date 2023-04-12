@@ -2,6 +2,7 @@ import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:restaurant_app_api_dicoding/app/source/data_source/remote_data_source.dart';
+import 'package:restaurant_app_api_dicoding/app/view/home_pages/view_model/home_provider.dart';
 
 import '../main.dart';
 import 'notification_helper.dart';
@@ -29,7 +30,7 @@ class BackgroundServices {
 
   static Future<void> callBack() async {
     final NotificationHelper notificationHelper = NotificationHelper();
-    var result = await RemoteDataSource().getRestaurantList();
+    var result = HomeProvider().restoList;
 
     await notificationHelper.showNotification(
         flutterLocalNotificationsPlugin, result!);

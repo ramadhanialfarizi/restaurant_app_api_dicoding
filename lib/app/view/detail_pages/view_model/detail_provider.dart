@@ -16,12 +16,10 @@ class DetailProvider extends ChangeNotifier {
   ResultState? state;
   String message = '';
 
-  bool isFavorite = false;
-
   Future<void> getDetailRestaurant(String? id) async {
     try {
-      final source = await remoteDataSource.getDetailRestaurant(id);
       state = ResultState.loading;
+      final source = await remoteDataSource.getDetailRestaurant(id);
       notifyListeners();
       if (source.restaurant == null) {
         state = ResultState.noData;
@@ -39,23 +37,8 @@ class DetailProvider extends ChangeNotifier {
     }
   }
 
-  void favoriteTap() {
-    isFavorite = !isFavorite;
-    notifyListeners();
-  }
-
   Future<void> addReview(String? id, String? name, String? review) async {
     await remoteDataSource.addReviewUser(id, name, review);
-    notifyListeners();
-  }
-
-  Future<void> addFavorite(AddFavorite addFavorite) async {
-    await dbHelper.insertFavorite(addFavorite);
-    notifyListeners();
-  }
-
-  void removeFavorite(String? restaurantID) async {
-    await dbHelper.removeFavoriteFromDetail(restaurantID);
     notifyListeners();
   }
 }

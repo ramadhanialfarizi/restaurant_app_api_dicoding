@@ -17,8 +17,8 @@ class HomeProvider extends ChangeNotifier {
 
   Future<void> getAllRestaurantList() async {
     try {
-      final source = await remoteDataSource.getRestaurantList();
       _state = ResultState.loading;
+      final source = await remoteDataSource.getRestaurantList();
       notifyListeners();
       if (source!.restaurants.isEmpty) {
         _state = ResultState.noData;

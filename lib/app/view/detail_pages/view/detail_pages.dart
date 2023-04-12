@@ -57,8 +57,11 @@ class _DetailPagesState extends State<DetailPages> {
         child: Consumer2<DetailProvider, FavoriteProvider>(
           builder: (context, detailRestaurant, favorite, __) {
             if (detailRestaurant.state == ResultState.loading) {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return SizedBox(
+                height: MediaQuery.of(context).size.height / 1,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
               );
             } else if (detailRestaurant.state == ResultState.hasData) {
               return Column(
@@ -137,8 +140,8 @@ class _DetailPagesState extends State<DetailPages> {
                         ),
                         ElevatedButton.icon(
                           onPressed: () {
-                            if (detailRestaurant.isFavorite == false) {
-                              context.read<DetailProvider>().favoriteTap();
+                            if (favorite.isFavorite == false) {
+                              //context.read<DetailProvider>().favoriteTap();
                               var favorite = AddFavorite(
                                 restaurantID: detailRestaurant
                                     .restaurantDetailModel?.restaurant.id,
@@ -154,7 +157,7 @@ class _DetailPagesState extends State<DetailPages> {
                                     .restaurantDetailModel?.restaurant.rating,
                               );
                               context
-                                  .read<DetailProvider>()
+                                  .read<FavoriteProvider>()
                                   .addFavorite(favorite);
 
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -164,8 +167,8 @@ class _DetailPagesState extends State<DetailPages> {
                                 ),
                               );
                             } else {
-                              context.read<DetailProvider>().favoriteTap();
-                              context.read<DetailProvider>().removeFavorite(
+                              // context.read<DetailProvider>().favoriteTap();
+                              context.read<FavoriteProvider>().removeFavorite(
                                     detailRestaurant
                                         .restaurantDetailModel?.restaurant.id,
                                   );
@@ -177,7 +180,7 @@ class _DetailPagesState extends State<DetailPages> {
                               );
                             }
                           },
-                          icon: (detailRestaurant.isFavorite == true)
+                          icon: (favorite.isFavorite == true)
                               ? const Icon(Icons.favorite)
                               : const Icon(Icons.favorite_outline),
                           label: const Text('add to favorite'),

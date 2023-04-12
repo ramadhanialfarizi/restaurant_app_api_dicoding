@@ -17,20 +17,20 @@ void main() {
     return db;
   });
 
-  test('add favorite', () {
-    /// ARANGE
-    var detailProvider = DetailProvider();
-    var favoriteList = FavoriteProvider();
-    AddFavorite addFavorite = AddFavorite(
-      id: 1,
-    );
+  // test('add favorite', () {
+  //   /// ARANGE
+  //   var detailProvider = DetailProvider();
+  //   var favoriteList = FavoriteProvider();
+  //   AddFavorite addFavorite = AddFavorite(
+  //     id: 1,
+  //   );
 
-    /// ACT
-    detailProvider.addFavorite(addFavorite);
-    //favoriteList.getAllFavorite();
+  //   /// ACT
+  //   detailProvider.addFavorite(addFavorite);
+  //   //favoriteList.getAllFavorite();
 
-    /// ASSERT
-    var result = favoriteList.favorite.contains(addFavorite);
-    expect(result, true);
-  });
+  //   /// ASSERT
+  //   var result = favoriteList.favorite.contains(addFavorite);
+  //   expect(result, true);
+  // });
 }

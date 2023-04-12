@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app_api_dicoding/app/view/search_pages/model/restaurant_search_model.dart';
 import 'package:restaurant_app_api_dicoding/app/view/search_pages/view_model/search_provider.dart';
 import 'package:restaurant_app_api_dicoding/core/enum.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/error.dart';
@@ -25,64 +26,69 @@ class _SearchPagesState extends State<SearchPages> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SearchProvider>(
-      builder: (context, searchRestaurant, __) {
-        return Scaffold(
-          body: SingleChildScrollView(
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      'Find Restaurant',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      height: 50,
-                      child: TextFormField(
-                        controller: searchInput,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: const EdgeInsets.all(20.0),
-                          hintText: "Search Restaurant...",
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(50.0),
-                          ),
-                          filled: true,
-                          fillColor: const Color.fromARGB(255, 234, 234, 234),
-                          suffixIcon: IconButton(
-                            icon: const Icon(Icons.search),
-                            onPressed: () {
-                              context
-                                  .read<SearchProvider>()
-                                  .getSearchListRestaurant(searchInput.text);
-                            },
-                          ),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  'Find Restaurant',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Consumer<SearchProvider>(
+                    builder: (context, searchRestaurant, __) {
+                  return SizedBox(
+                    height: 50,
+                    child: TextFormField(
+                      controller: searchInput,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.all(20.0),
+                        hintText: "Search Restaurant...",
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
+                        filled: true,
+                        fillColor: const Color.fromARGB(255, 234, 234, 234),
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.search),
+                          onPressed: () {
+                            context
+                                .read<SearchProvider>()
+                                .getSearchListRestaurant(searchInput.text);
+                          },
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    if (searchRestaurant.state == ResultState.loading) ...[
-                      const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ] else if (searchRestaurant.state ==
-                        ResultState.hasData) ...[
-                      ListView.builder(
+                  );
+                }),
+                const SizedBox(
+                  height: 16,
+                ),
+                Consumer<SearchProvider>(
+                  builder: (context, searchRestaurant, __) {
+                    if (searchRestaurant.state == ResultState.loading) {
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height / 1.3,
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    } else if (searchRestaurant.state == ResultState.hasData) {
+                      return ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: searchRestaurant
@@ -169,20 +175,19 @@ class _SearchPagesState extends State<SearchPages> {
                             ),
                           );
                         },
-                      ),
-                    ] else if (searchRestaurant.state ==
-                        ResultState.noData) ...[
-                      const EmptyData(),
-                    ] else if (searchRestaurant.state == ResultState.error) ...[
-                      const ErrorData(),
-                    ]
-                  ],
+                      );
+                    } else if (searchRestaurant.state == ResultState.error) {
+                      return const ErrorData();
+                    } else {
+                      return const EmptyData();
+                    }
+                  },
                 ),
-              ),
+              ],
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
