@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/view_model/auth_provider.dart';
@@ -5,8 +6,13 @@ import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view_model/det
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/view_model/home_provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/search_pages/view_model/search_provider.dart';
 import 'package:restaurant_app_api_dicoding/core/routes.dart';
+import 'package:restaurant_app_api_dicoding/firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     const MyApp(),
   );
