@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:restaurant_app_api_dicoding/app/view/search_pages/model/restaurant_search_model.dart';
 
-import '../../../../core/utils/enum.dart';
+import '../../../../core/utils/constant.dart';
 import '../../../source/data_source/remote_data_source.dart';
 
 class SearchProvider extends ChangeNotifier {

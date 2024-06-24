@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_package/flutter_package.dart';
 import 'package:restaurant_app_api_dicoding/app/source/data_source/remote_data_source.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/view/signin_page.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/restaurant_list_model.dart';
 import 'package:restaurant_app_api_dicoding/core/utils/cache_manager.dart';
 import 'package:restaurant_app_api_dicoding/main.dart';
 
-import '../../../../core/utils/enum.dart';
+import '../../../../core/utils/constant.dart';
 
 class HomeProvider extends ChangeNotifier with CacheManager {
   final RemoteDataSource remoteDataSource = RemoteDataSource();
@@ -27,6 +28,8 @@ class HomeProvider extends ChangeNotifier with CacheManager {
   initData() async {
     String email = await getEmailName();
 
+    LogUtility.writeLog('email: ${email}');
+
     if (email.isNotEmpty) {
       userName = email;
     }
@@ -34,6 +37,8 @@ class HomeProvider extends ChangeNotifier with CacheManager {
 
   Future<void> getAllRestaurantList() async {
     _state = ResultState.loading;
+    notifyListeners();
+
     try {
       final source = await remoteDataSource.getRestaurantList();
       notifyListeners();

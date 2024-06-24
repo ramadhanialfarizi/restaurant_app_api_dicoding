@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/model/add_review_model.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/model/restaurant_detail_model.dart';
-import 'package:restaurant_app_api_dicoding/core/utils/enum.dart';
+import 'package:restaurant_app_api_dicoding/core/utils/constant.dart';
 
 import '../../../source/data_source/remote_data_source.dart';
 
@@ -14,9 +14,9 @@ class DetailProvider extends ChangeNotifier {
   String message = '';
 
   Future<void> getDetailRestaurant(String? id) async {
+    state = ResultState.loading;
     try {
       final source = await remoteDataSource.getDetailRestaurant(id);
-      state = ResultState.loading;
       notifyListeners();
       if (source.restaurant == null) {
         state = ResultState.noData;

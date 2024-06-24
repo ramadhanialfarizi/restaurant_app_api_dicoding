@@ -7,7 +7,7 @@ import 'package:restaurant_app_api_dicoding/app/view/home_pages/view_model/home_
 import 'package:restaurant_app_api_dicoding/core/global_widget/empty_data.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/error.dart';
 
-import '../../../../core/utils/enum.dart';
+import '../../../../core/utils/constant.dart';
 import 'widget/search_button.dart';
 
 class HomePages extends StatelessWidget {

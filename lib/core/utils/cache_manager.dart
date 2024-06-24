@@ -1,4 +1,4 @@
-import 'package:restaurant_app_api_dicoding/core/utils/enum.dart';
+import 'package:restaurant_app_api_dicoding/core/utils/constant.dart';
 import 'package:restaurant_app_api_dicoding/main.dart';
 
 mixin CacheManager {
