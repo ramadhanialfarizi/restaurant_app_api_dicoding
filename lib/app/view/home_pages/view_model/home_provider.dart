@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_package/flutter_package.dart';
 import 'package:restaurant_app_api_dicoding/app/source/data_source/remote_data_source.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/view/signin_page.dart';
+import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/authlogout_response_model.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/restaurant_list_model.dart';
+import 'package:restaurant_app_api_dicoding/core/global_widget/warning_popup.dart';
+import 'package:restaurant_app_api_dicoding/core/helpers/authentication_helpers/auth_helpers.dart';
 import 'package:restaurant_app_api_dicoding/core/utils/cache_manager.dart';
 import 'package:restaurant_app_api_dicoding/main.dart';
 
@@ -74,9 +77,23 @@ class HomeProvider extends ChangeNotifier with CacheManager {
   }
 
   doLogout(context) async {
-    setLoginStatus(false);
-    removeData(keyType: CacheManagerKey.emailName.name);
+    AuthlogoutResponseModel responseModel = await AuthHelpers().logout();
 
-    Navigator.of(context).pushReplacementNamed(SigninPages.routes);
+    if (responseModel.isError == false) {
+      setLoginStatus(false);
+      removeData(keyType: CacheManagerKey.emailName.name);
+
+      Navigator.of(context).pushReplacementNamed(SigninPages.routes);
+    } else {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return WarningDialog(
+            message: responseModel.errorMsg,
+          );
+        },
+      );
+    }
   }
 }

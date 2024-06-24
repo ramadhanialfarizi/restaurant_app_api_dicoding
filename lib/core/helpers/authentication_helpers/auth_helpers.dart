@@ -3,6 +3,7 @@ import 'package:restaurant_app_api_dicoding/app/view/authentication/model/signin
 import 'package:restaurant_app_api_dicoding/app/view/authentication/model/signin/signin_response_model.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/model/signup/signup_request_model.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/model/signup/signup_response_model.dart';
+import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/authlogout_response_model.dart';
 
 class AuthHelpers {
   Future<SignupResponseModel> registerAccount(
@@ -70,6 +71,23 @@ class AuthHelpers {
       responseModel
         ..isError = true
         ..errorMsg = "request is empty, please input again";
+
+      return responseModel;
+    }
+  }
+
+  Future<AuthlogoutResponseModel> logout() async {
+    AuthlogoutResponseModel responseModel = AuthlogoutResponseModel();
+    try {
+      await FirebaseAuth.instance.signOut();
+
+      responseModel.isError = false;
+      responseModel.errorMsg = "";
+
+      return responseModel;
+    } on FirebaseAuthException catch (e) {
+      responseModel.isError = true;
+      responseModel.errorMsg = e.toString();
 
       return responseModel;
     }
