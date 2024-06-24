@@ -13,6 +13,7 @@ class HomeProvider extends ChangeNotifier with CacheManager {
 
   RestaurantListModel? _restaurantList;
   ResultState? _state;
+  ResultState? loadingNameState;
   String _message = '';
   String userName = "";
 
@@ -26,12 +27,20 @@ class HomeProvider extends ChangeNotifier with CacheManager {
   }
 
   initData() async {
+    loadingNameState = ResultState.loading;
+    notifyListeners();
+
     String email = await getEmailName();
 
     LogUtility.writeLog('email: ${email}');
 
     if (email.isNotEmpty) {
       userName = email;
+      loadingNameState = ResultState.hasData;
+      notifyListeners();
+    } else {
+      loadingNameState = ResultState.noData;
+      notifyListeners();
     }
   }
 

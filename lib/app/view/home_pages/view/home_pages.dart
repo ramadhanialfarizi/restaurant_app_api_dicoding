@@ -6,6 +6,7 @@ import 'package:restaurant_app_api_dicoding/app/view/home_pages/view/widget/side
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/view_model/home_provider.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/empty_data.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/error.dart';
+import 'package:restaurant_app_api_dicoding/core/global_widget/skeleton_loading.dart';
 
 import '../../../../core/utils/constant.dart';
 import 'widget/search_button.dart';
@@ -31,10 +32,14 @@ class _HomePagesBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     var _controller = context.read<HomeProvider>();
     return BaseWidgetContainer(
-      drawer: Sidebar(
-        username: _controller.userName,
-        onLogoutPress: () {
-          _controller.doLogout(context);
+      drawer: Consumer<HomeProvider>(
+        builder: (context, value, child) {
+          return Sidebar(
+            username: _controller.userName,
+            onLogoutPress: () {
+              _controller.doLogout(context);
+            },
+          );
         },
       ),
       appBar: AppBar(),
@@ -52,12 +57,27 @@ class _HomePagesBuilder extends StatelessWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  Text(
-                    'Hi, Welcome ${_controller.userName}',
-                    style: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Consumer<HomeProvider>(
+                    builder: (context, value, child) {
+                      if (value.loadingNameState == ResultState.loading) {
+                        return SizedBox(
+                          width: 300,
+                          height: 380,
+                          child: SkeletonLoadingComponent(
+                              child: Container(
+                            color: Colors.white,
+                          )),
+                        );
+                      } else {
+                        return Text(
+                          'Hi, Welcome ${_controller.userName}',
+                          style: const TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      }
+                    },
                   ),
                   const SizedBox(
                     height: 10,
