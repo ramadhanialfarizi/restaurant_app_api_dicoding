@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/search_pages/view_model/search_provider.dart';
-import 'package:restaurant_app_api_dicoding/core/enum.dart';
+import 'package:restaurant_app_api_dicoding/core/utils/enum.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/error.dart';
 
 import '../../../../core/global_widget/empty_data.dart';
@@ -9,6 +9,8 @@ import '../../detail_pages/view/detail_pages.dart';
 
 class SearchPages extends StatefulWidget {
   const SearchPages({super.key});
+
+  static const String routes = "/search";
 
   @override
   State<SearchPages> createState() => _SearchPagesState();

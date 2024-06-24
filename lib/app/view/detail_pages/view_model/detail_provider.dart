@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/model/add_review_model.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/model/restaurant_detail_model.dart';
-import 'package:restaurant_app_api_dicoding/core/enum.dart';
+import 'package:restaurant_app_api_dicoding/core/utils/enum.dart';
 
 import '../../../source/data_source/remote_data_source.dart';
 

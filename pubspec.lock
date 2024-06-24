@@ -118,6 +118,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  flutter_package:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: "8d34dc4430c18f578dee946f85b45ad77581509f"
+      url: "https://github.com/internal-dev-package/flutter-package.git"
+    source: git
+    version: "0.0.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -414,5 +423,5 @@ packages:
     source: hosted
     version: "1.0.4"
 sdks:
-  dart: ">=3.4.0 <4.0.0"
+  dart: ">=3.4.3 <4.0.0"
   flutter: ">=3.22.0"

@@ -1,30 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:restaurant_app_api_dicoding/core/utils/colors_constant.dart';
 
-class Sidebar extends StatefulWidget {
-  const Sidebar({super.key});
+class Sidebar extends StatelessWidget {
+  const Sidebar({
+    super.key,
+    this.username,
+    required this.onLogoutPress,
+  });
 
-  @override
-  State<Sidebar> createState() => _SidebarState();
-}
+  final String? username;
+  final VoidCallback onLogoutPress;
 
-class _SidebarState extends State<Sidebar> {
-  SharedPreferences? loginData;
-  String userName = " ";
-
-  void initial() async {
-    loginData = await SharedPreferences.getInstance();
-    setState(() {
-      userName = loginData!.getString('userName').toString();
-    });
-  }
-
-  @override
-  void initState() {
-    initial();
-    super.initState();
-  }
-
+  // SharedPreferences? loginData;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -40,7 +27,7 @@ class _SidebarState extends State<Sidebar> {
             ),
             // USER EMAIL
             accountEmail: Text(
-              userName,
+              username ?? "empty",
               style: const TextStyle(
                 fontSize: 11,
                 color: Colors.white,
@@ -81,16 +68,17 @@ class _SidebarState extends State<Sidebar> {
                 style: TextStyle(color: Colors.white),
               ),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  const Color(0xFF76b5c5),
+                backgroundColor: WidgetStateProperty.all<Color>(
+                  ColorsConstant.primaryColors,
                 ),
               ),
-              onPressed: () async {
-                loginData!.setBool('login', false);
-                loginData!.remove('userName');
+              // onPressed: () async {
+              //   // loginData!.setBool('login', false);
+              //   // loginData!.remove('userName');
 
-                Navigator.of(context).pushReplacementNamed('/signin');
-              },
+              //   // Navigator.of(context).pushReplacementNamed('/signin');
+              // },
+              onPressed: onLogoutPress,
             ),
           ),
         ],

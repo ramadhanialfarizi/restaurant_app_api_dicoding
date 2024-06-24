@@ -1,48 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_package/flutter_package.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/view_model/auth_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:restaurant_app_api_dicoding/core/utils/colors_constant.dart';
+import 'package:restaurant_app_api_dicoding/core/utils/image_constant.dart';
 
-class SigninPages extends StatefulWidget {
+class SigninPages extends StatelessWidget {
   const SigninPages({super.key});
-
-  @override
-  State<SigninPages> createState() => _SigninPagesState();
-}
-
-class _SigninPagesState extends State<SigninPages> {
-  TextEditingController userNameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
-
-  SharedPreferences? loginUser;
-  bool? user;
-
-  void checkLogin(context) async {
-    loginUser = await SharedPreferences.getInstance();
-    user = loginUser?.getBool('login') ?? false;
-
-    if (user == true) {
-      Navigator.of(context).pushReplacementNamed('/home');
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    checkLogin(context);
-  }
-
-  @override
-  void dispose() {
-    userNameController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
+  static const String routes = "/signin";
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ChangeNotifierProvider(
+      create: (_) => AuthProvider(),
+      child: const _SigninBuilder(),
+    );
+  }
+}
+
+class _SigninBuilder extends StatelessWidget {
+  const _SigninBuilder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var controller = context.read<AuthProvider>();
+    return BaseWidgetContainer(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -56,7 +38,7 @@ class _SigninPagesState extends State<SigninPages> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/splash_screen_icon.png',
+                  ImagesConstant.icons,
                   scale: 3,
                 ),
                 const SizedBox(
@@ -70,17 +52,21 @@ class _SigninPagesState extends State<SigninPages> {
                   height: 45,
                 ),
                 Form(
-                  key: formKey,
+                  key: controller.formKey,
                   child: Column(
                     children: [
                       TextFormField(
-                        controller: userNameController,
+                        controller: controller.emailController,
                         decoration: const InputDecoration(
-                          hintText: 'input your username',
+                          hintText: 'input your email',
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return '* please input your username';
+                            return '* please input your email';
+                          }
+
+                          if (!value.contains("@")) {
+                            return '* please input valid email';
                           }
 
                           return null;
@@ -92,7 +78,7 @@ class _SigninPagesState extends State<SigninPages> {
                       Consumer<AuthProvider>(
                         builder: (context, value, _) {
                           return TextFormField(
-                            controller: passwordController,
+                            controller: controller.passwordController,
                             obscureText: value.obscurePassword,
                             decoration: InputDecoration(
                               hintText: 'Password',
@@ -133,27 +119,45 @@ class _SigninPagesState extends State<SigninPages> {
                                 color: Colors.white),
                           ),
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xFF44bcd8),
+                            backgroundColor: WidgetStateProperty.all<Color>(
+                              ColorsConstant.primaryColors,
                             ),
                           ),
                           onPressed: () async {
-                            final loginValid = formKey.currentState!.validate();
+                            controller.doLogin(context);
+                            // final loginValid = formKey.currentState!.validate();
 
-                            String userName = userNameController.text;
+                            // String email = emailController.text;
 
-                            if (loginValid) {
-                              loginUser!.setBool('login', true);
-                              loginUser!.setString('userName', userName);
-                              Navigator.of(context)
-                                  .pushReplacementNamed('/home');
-                            }
+                            // if (loginValid) {
+                            //   loginUser!.setBool('login', true);
+                            //   loginUser!.setString('userName', email);
+                            //   Navigator.of(context)
+                            //       .pushReplacementNamed(HomePages.routes);
+                            // }
                           },
                         ),
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(
+                  height: 19,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Tidak memiliki akun?"),
+                    TextButton(
+                      onPressed: () =>
+                          context.read<AuthProvider>().goToSignup(context),
+                      child: const Text(
+                        "Register",
+                        style: TextStyle(color: ColorsConstant.primaryColors),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),

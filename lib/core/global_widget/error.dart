@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app_api_dicoding/core/utils/image_constant.dart';
 
 class ErrorData extends StatelessWidget {
   const ErrorData({super.key, this.message});
@@ -13,7 +14,7 @@ class ErrorData extends StatelessWidget {
       child: Column(
         children: [
           Image.asset(
-            'assets/404_not_found.jpeg',
+            ImagesConstant.errorIcons,
             scale: 3,
           ),
           const SizedBox(

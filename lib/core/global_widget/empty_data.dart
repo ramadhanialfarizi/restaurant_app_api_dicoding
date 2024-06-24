@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app_api_dicoding/core/utils/image_constant.dart';
 
 class EmptyData extends StatelessWidget {
   const EmptyData({super.key});
@@ -11,7 +12,7 @@ class EmptyData extends StatelessWidget {
       child: Column(
         children: [
           Image.asset(
-            'assets/empty_data.png',
+            ImagesConstant.emptyIcons,
             scale: 3,
           ),
           const SizedBox(

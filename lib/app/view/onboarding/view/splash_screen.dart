@@ -1,35 +1,38 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_package/flutter_package.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app_api_dicoding/app/view/onboarding/view_model/splash_screen_provider.dart';
+import 'package:restaurant_app_api_dicoding/core/utils/image_constant.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    splashScreenStart();
-  }
-
-  splashScreenStart() async {
-    var duration = const Duration(seconds: 3);
-    return Timer(duration, () {
-      Navigator.of(context).pushReplacementNamed('/signin');
-    });
-  }
+  static const String route = "/";
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ChangeNotifierProvider(
+      create: (_) => SplashScreenProvider(
+        context: context,
+      ),
+      child: const _SplashScreenBuilder(),
+    );
+  }
+}
+
+class _SplashScreenBuilder extends StatelessWidget {
+  const _SplashScreenBuilder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var controller = context.read<SplashScreenProvider>();
+    return BaseWidgetContainer(
       body: SafeArea(
         child: Center(
           child: Image.asset(
-            'assets/splash_screen_icon.png',
+            ImagesConstant.icons,
             scale: 3,
           ),
         ),

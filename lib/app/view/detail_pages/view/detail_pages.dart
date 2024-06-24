@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_package/flutter_package.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view_model/detail_provider.dart';
-import 'package:restaurant_app_api_dicoding/core/enum.dart';
+import 'package:restaurant_app_api_dicoding/core/utils/enum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/global_widget/empty_data.dart';
@@ -12,6 +13,7 @@ import 'widget/food_menu.dart';
 class DetailPages extends StatefulWidget {
   const DetailPages({super.key, this.restaurantID});
 
+  static const String routes = "/detail";
   final String? restaurantID;
 
   @override
@@ -50,7 +52,7 @@ class _DetailPagesState extends State<DetailPages> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BaseWidgetContainer(
       body: SingleChildScrollView(
         child: Consumer<DetailProvider>(
           builder: (context, detailRestaurant, __) {
