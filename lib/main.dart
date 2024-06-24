@@ -29,9 +29,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => DetailProvider(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => SearchProvider(),
         ),
       ],

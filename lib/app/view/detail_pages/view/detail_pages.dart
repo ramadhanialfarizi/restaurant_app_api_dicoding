@@ -10,48 +10,30 @@ import '../../../../core/global_widget/error.dart';
 import 'widget/drink_menu.dart';
 import 'widget/food_menu.dart';
 
-class DetailPages extends StatefulWidget {
-  const DetailPages({super.key, this.restaurantID});
+class DetailPages extends StatelessWidget {
+  const DetailPages({
+    super.key,
+    this.restaurantID,
+  });
 
   static const String routes = "/detail";
   final String? restaurantID;
 
   @override
-  State<DetailPages> createState() => _DetailPagesState();
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => DetailProvider(restaurantID: restaurantID ?? ""),
+      child: const _DetailPagesBuilder(),
+    );
+  }
 }
 
-class _DetailPagesState extends State<DetailPages> {
-  SharedPreferences? loginData;
-  String? userName;
-  TextEditingController commentInputController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    commentInputController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getDetailRestaurant();
-    init();
-  }
-
-  void init() async {
-    loginData = await SharedPreferences.getInstance();
-    setState(() {
-      userName = loginData!.getString('userName').toString();
-    });
-  }
-
-  void getDetailRestaurant() {
-    context.read<DetailProvider>().getDetailRestaurant(widget.restaurantID);
-  }
+class _DetailPagesBuilder extends StatelessWidget {
+  const _DetailPagesBuilder();
 
   @override
   Widget build(BuildContext context) {
+    var controller = context.read<DetailProvider>();
     return BaseWidgetContainer(
       body: SingleChildScrollView(
         child: Consumer<DetailProvider>(
@@ -65,10 +47,9 @@ class _DetailPagesState extends State<DetailPages> {
                 children: [
                   ClipRRect(
                     borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30)),
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
+                    ),
                     child: Image.network(
                         'https://restaurant-api.dicoding.dev/images/large/${detailRestaurant.restaurantDetailModel?.restaurant.pictureId}'),
                   ),
@@ -197,7 +178,8 @@ class _DetailPagesState extends State<DetailPages> {
                                   ),
                                 ),
                                 context: context,
-                                builder: (context) => commentSection(),
+                                builder: (context) =>
+                                    commentSection(controller, context),
                               );
                             },
                           ),
@@ -233,12 +215,9 @@ class _DetailPagesState extends State<DetailPages> {
     );
   }
 
-  Widget commentSection() {
-    var commentData = context
-        .read<DetailProvider>()
-        .restaurantDetailModel
-        ?.restaurant
-        .customerReviews;
+  Widget commentSection(DetailProvider controller, context) {
+    var commentData =
+        controller.restaurantDetailModel?.restaurant.customerReviews;
     return Container(
       //decoration: ,
       margin: const EdgeInsets.all(16),
@@ -279,9 +258,9 @@ class _DetailPagesState extends State<DetailPages> {
             child: SizedBox(
               height: 50,
               child: Form(
-                key: formKey,
+                key: controller.formKey,
                 child: TextFormField(
-                  controller: commentInputController,
+                  controller: controller.commentInputController,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     contentPadding: const EdgeInsets.all(20.0),
@@ -295,19 +274,18 @@ class _DetailPagesState extends State<DetailPages> {
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.send),
                       onPressed: () async {
-                        var validForm = formKey.currentState!.validate();
+                        var validForm =
+                            controller.formKey.currentState!.validate();
 
-                        var restaurantID = widget.restaurantID;
-                        var name = userName;
-                        var review = commentInputController.text;
+                        var restaurantID = controller.restaurantID;
+                        var name = controller.userName;
+                        var review = controller.commentInputController.text;
 
                         if (validForm) {
-                          context
-                              .read<DetailProvider>()
-                              .addReview(restaurantID, name, review);
+                          controller.addReview(restaurantID, name, review);
 
                           Navigator.pop(context);
-                          commentInputController.clear();
+                          controller.commentInputController.clear();
                         }
                       },
                     ),
