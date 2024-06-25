@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_api_dicoding/core/utils/colors_constant.dart';
+import 'package:restaurant_app_api_dicoding/core/utils/constant.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({
     super.key,
     this.username,
     required this.onLogoutPress,
+    required this.onFavoritePress,
+    required this.onHomePress,
+    this.screenKey,
   });
 
   final String? username;
+  final String? screenKey;
   final VoidCallback onLogoutPress;
+  final VoidCallback onFavoritePress;
+  final VoidCallback onHomePress;
 
   // SharedPreferences? loginData;
   @override
@@ -23,17 +30,52 @@ class Sidebar extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 ListTile(
-                  title: const Text(
+                  leading: const Icon(
+                    Icons.home,
+                    color: ColorsConstant.primaryColors,
+                  ),
+                  title: Text(
+                    'Home',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: screenKey == ScreenKey.homeScreen.name
+                            ? Colors.grey
+                            : Colors.black),
+                  ),
+                  onTap: onHomePress,
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.favorite,
+                    color: ColorsConstant.secondaryColors,
+                  ),
+                  title: Text(
                     'Favorites',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: screenKey == ScreenKey.favoriteScreen.name
+                            ? Colors.grey
+                            : Colors.black),
+                  ),
+                  onTap: onFavoritePress,
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.settings,
+                    color: ColorsConstant.thirdColors,
+                  ),
+                  title: Text(
+                    'Settings',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: screenKey == ScreenKey.settingsScreen.name
+                            ? Colors.grey
+                            : Colors.black),
                   ),
                   onTap: () {},
-                ),
-                const SizedBox(
-                  height: 15,
                 ),
               ],
             ),

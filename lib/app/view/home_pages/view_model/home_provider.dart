@@ -19,6 +19,7 @@ class HomeProvider extends ChangeNotifier with CacheManager {
   ResultState? loadingNameState;
   String _message = '';
   String userName = "";
+  String screenKey = ScreenKey.homeScreen.name;
 
   String get message => _message;
   RestaurantListModel? get restoList => _restaurantList;
@@ -126,5 +127,23 @@ class HomeProvider extends ChangeNotifier with CacheManager {
 
   checkComparison(Restaurant param) async {
     return await getCacheDataById(param.id ?? "");
+  }
+
+  gotoFavorite(context) {
+    if (screenKey != ScreenKey.favoriteScreen.name) {
+      screenKey = ScreenKey.favoriteScreen.name;
+      notifyListeners();
+
+      Navigator.pop(context);
+    }
+  }
+
+  gotoHome(context) {
+    if (screenKey != ScreenKey.homeScreen.name) {
+      screenKey = ScreenKey.homeScreen.name;
+      notifyListeners();
+
+      Navigator.pop(context);
+    }
   }
 }

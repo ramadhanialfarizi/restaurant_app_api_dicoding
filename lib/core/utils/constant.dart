@@ -7,6 +7,12 @@ enum CacheManagerKey {
   emailName,
 }
 
+enum ScreenKey {
+  homeScreen,
+  favoriteScreen,
+  settingsScreen,
+}
+
 class Constant {
   static double getFullHeight(context) {
     double screenFullHeight = MediaQuery.of(context).size.height;

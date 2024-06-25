@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/search_pages/view_model/search_provider.dart';
+import 'package:restaurant_app_api_dicoding/core/utils/colors_constant.dart';
 import 'package:restaurant_app_api_dicoding/core/utils/constant.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/error.dart';
 
@@ -40,12 +41,24 @@ class _SearchPagesState extends State<SearchPages> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const Text(
-                      'Find Restaurant',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    const Row(
+                      children: [
+                        Icon(
+                          Icons.search,
+                          size: 35,
+                          color: ColorsConstant.primaryColors,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Find Restaurant',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: 20,
