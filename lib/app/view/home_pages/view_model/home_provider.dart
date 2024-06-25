@@ -24,9 +24,12 @@ class HomeProvider extends ChangeNotifier with CacheManager {
   RestaurantListModel? get restoList => _restaurantList;
   ResultState? get state => _state;
 
+  bool isFavorite = false;
+
+  List<Restaurant> listRestaurantLocal = [];
+
   HomeProvider() {
     initData();
-    getAllRestaurantList();
   }
 
   initData() async {
@@ -45,6 +48,14 @@ class HomeProvider extends ChangeNotifier with CacheManager {
       loadingNameState = ResultState.noData;
       notifyListeners();
     }
+
+    getAllRestaurantList();
+  }
+
+  Future<Map> getCacheDataById(String id) async {
+    final favoriteSelected = await databaseHelper?.getFavoriteById(id);
+
+    return favoriteSelected!;
   }
 
   Future<void> getAllRestaurantList() async {
@@ -95,5 +106,25 @@ class HomeProvider extends ChangeNotifier with CacheManager {
         },
       );
     }
+  }
+
+  favoriteHandle(Restaurant param, bool favoriteStatus) async {
+    if (favoriteStatus) {
+      deleteFavorites(param.id ?? "");
+      // getAllData();
+    } else {
+      await databaseHelper?.addFavorite(param);
+      // getAllData();
+    }
+
+    getAllRestaurantList();
+  }
+
+  deleteFavorites(String id) async {
+    await databaseHelper?.deleteFavorite(id);
+  }
+
+  checkComparison(Restaurant param) async {
+    return await getCacheDataById(param.id ?? "");
   }
 }
