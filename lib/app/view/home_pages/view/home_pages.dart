@@ -114,8 +114,8 @@ class _HomePagesBuilder extends StatelessWidget {
                                 future: _controller
                                     .getCacheDataById(initial?.id ?? ""),
                                 builder: (context, snapshot) {
-                                  bool isFavorite = snapshot.hasData;
-                                  LogUtility.writeLog("status ; ${isFavorite}");
+                                  var isFavoriteData = snapshot.data;
+                                  // LogUtility.writeLog("status ; ${isFavorite.}");
                                   return CardItem(
                                     imageLink:
                                         'https://restaurant-api.dicoding.dev/images/medium/${initial?.pictureId}',
@@ -125,7 +125,6 @@ class _HomePagesBuilder extends StatelessWidget {
                                         (initial?.rating ?? "0.0").toString(),
                                     onTap: () {
                                       var restaurantID = initial?.id;
-                                      //print(restaurantID);
                                       DetailPages(
                                         restaurantID: restaurantID,
                                       );
@@ -139,10 +138,13 @@ class _HomePagesBuilder extends StatelessWidget {
                                         ),
                                       );
                                     },
-                                    isFavorite: isFavorite,
+                                    isFavorite:
+                                        initial?.id == isFavoriteData?.id,
                                     onFavoriteTap: () {
+                                      bool status =
+                                          initial?.id == isFavoriteData?.id;
                                       _controller.favoriteHandle(
-                                          initial ?? Restaurant(), isFavorite);
+                                          initial ?? Restaurant(), status);
                                     },
                                   );
                                 });

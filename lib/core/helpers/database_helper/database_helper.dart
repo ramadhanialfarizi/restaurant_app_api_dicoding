@@ -81,7 +81,7 @@ class DatabaseHelper {
     }
   }
 
-  Future<Map> getFavoriteById(String id) async {
+  Future<Restaurant> getFavoriteById(String id) async {
     try {
       final db = await database;
       if (db != null) {
@@ -91,18 +91,20 @@ class DatabaseHelper {
           whereArgs: [id],
         );
 
-        if (results.isNotEmpty) {
-          return results.first;
-        } else {
-          return {};
-        }
+        return results.map((element) => Restaurant.fromJson(element)).first;
+
+        // if (results.isNotEmpty) {
+        //   return results.first;
+        // } else {
+        //   return {};
+        // }
       } else {
         LogUtility.writeLog("get by id failed");
-        return {};
+        return Restaurant();
       }
     } catch (e) {
       LogUtility.writeLog(e.toString());
-      return {};
+      return Restaurant();
     }
   }
 

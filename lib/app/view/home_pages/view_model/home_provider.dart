@@ -52,7 +52,7 @@ class HomeProvider extends ChangeNotifier with CacheManager {
     getAllRestaurantList();
   }
 
-  Future<Map> getCacheDataById(String id) async {
+  Future<Restaurant> getCacheDataById(String id) async {
     final favoriteSelected = await databaseHelper?.getFavoriteById(id);
 
     return favoriteSelected!;
