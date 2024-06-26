@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_package/flutter_package.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +25,7 @@ class _SplashScreenBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     var controller = context.read<SplashScreenProvider>();
     return BaseWidgetContainer(
       body: SafeArea(

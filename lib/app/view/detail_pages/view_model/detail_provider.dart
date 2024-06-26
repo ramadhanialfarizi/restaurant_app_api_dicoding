@@ -71,6 +71,7 @@ class DetailProvider extends ChangeNotifier with CacheManager {
 
     try {
       final source = await remoteDataSource.getDetailRestaurant(id);
+      // ignore: unnecessary_null_comparison
       if (source.restaurant == null) {
         state = ResultState.noData;
         message = 'Empty Data';

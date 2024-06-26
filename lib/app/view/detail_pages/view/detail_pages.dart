@@ -5,7 +5,6 @@ import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view_model/det
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/restaurant_list_model.dart';
 import 'package:restaurant_app_api_dicoding/core/utils/colors_constant.dart';
 import 'package:restaurant_app_api_dicoding/core/utils/constant.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/global_widget/empty_data.dart';
 import '../../../../core/global_widget/error.dart';

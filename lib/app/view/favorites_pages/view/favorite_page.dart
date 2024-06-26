@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view/detail_pages.dart';
 import 'package:restaurant_app_api_dicoding/app/view/favorites_pages/view_model/favorite_page_provider.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/card_item.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/empty_data.dart';
@@ -27,7 +26,7 @@ class _FavoritePageBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     var _controller = context.read<FavoritePageProvider>();
     return Padding(
-      padding: EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(20.0),
       child: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Column(
@@ -61,7 +60,7 @@ class _FavoritePageBuilder extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else if (viewRender.state == ResultState.hasData) {
-                  return Container(
+                  return SizedBox(
                     height: Constant.getFullHeight(context) * 0.80,
                     child: ListView.builder(
                       padding: const EdgeInsets.only(bottom: 100),
