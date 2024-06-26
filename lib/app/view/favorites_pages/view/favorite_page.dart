@@ -76,19 +76,7 @@ class _FavoritePageBuilder extends StatelessWidget {
                           location: data.city ?? "",
                           rating: (data.rating ?? "0.0").toString(),
                           onTap: () {
-                            var restaurantID = data.id;
-                            DetailPages(
-                              restaurantID: restaurantID,
-                            );
-
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailPages(
-                                  restaurantID: restaurantID,
-                                ),
-                              ),
-                            );
+                            _controller.gotoDetailPage(context, data);
                           },
                           isFavorite: true,
                           onFavoriteTap: () {

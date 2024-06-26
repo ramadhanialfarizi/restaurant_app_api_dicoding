@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/model/add_review_model.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/model/restaurant_detail_model.dart';
+import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/restaurant_list_model.dart';
 import 'package:restaurant_app_api_dicoding/core/utils/cache_manager.dart';
 import 'package:restaurant_app_api_dicoding/core/utils/constant.dart';
+import 'package:restaurant_app_api_dicoding/main.dart';
 
 import '../../../source/data_source/remote_data_source.dart';
 
@@ -17,8 +19,10 @@ class DetailProvider extends ChangeNotifier with CacheManager {
   AddReviewModel? addReviewModel;
   ResultState? state;
   String message = '';
+  bool isFavorite = false;
 
   String restaurantID;
+  Restaurant? restaurantData;
 
   @override
   void dispose() {
@@ -26,11 +30,11 @@ class DetailProvider extends ChangeNotifier with CacheManager {
     super.dispose();
   }
 
-  DetailProvider({required this.restaurantID}) {
+  DetailProvider({required this.restaurantID, this.restaurantData}) {
     initData();
 
     if (restaurantID.isNotEmpty) {
-      getDetailRestaurant(restaurantID);
+      initDetailData();
     } else {
       state = ResultState.noData;
       message = 'Empty Data';
@@ -40,6 +44,25 @@ class DetailProvider extends ChangeNotifier with CacheManager {
 
   initData() async {
     userName = await getEmailName();
+  }
+
+  initDetailData() async {
+    await getDetailRestaurant(restaurantID);
+    var localData = await getCacheDataById(restaurantID);
+
+    if (restaurantID == localData.id) {
+      isFavorite = true;
+      notifyListeners();
+    } else {
+      isFavorite = false;
+      notifyListeners();
+    }
+  }
+
+  Future<Restaurant> getCacheDataById(String id) async {
+    final favoriteSelected = await databaseHelper?.getFavoriteById(id);
+
+    return favoriteSelected!;
   }
 
   Future<void> getDetailRestaurant(String? id) async {
@@ -69,5 +92,23 @@ class DetailProvider extends ChangeNotifier with CacheManager {
 
     getDetailRestaurant(id);
     notifyListeners();
+  }
+
+  handleFavoriteButton() async {
+    if (isFavorite) {
+      deleteFavorites(restaurantID);
+      isFavorite = false;
+      notifyListeners();
+    } else {
+      await databaseHelper?.addFavorite(restaurantData ?? Restaurant());
+      isFavorite = true;
+      notifyListeners();
+    }
+
+    setProcessStatus(status: true);
+  }
+
+  deleteFavorites(String id) async {
+    await databaseHelper?.deleteFavorite(id);
   }
 }

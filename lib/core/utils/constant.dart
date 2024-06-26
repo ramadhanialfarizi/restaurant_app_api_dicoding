@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 
 enum ResultState { loading, noData, hasData, error }
 
-enum CacheManagerKey {
-  loginSaveData,
-  emailName,
-}
+enum CacheManagerKey { loginSaveData, emailName, setProcessStatus }
 
 enum ScreenKey {
   homeScreen,

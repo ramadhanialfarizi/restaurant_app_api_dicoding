@@ -33,4 +33,16 @@ mixin CacheManager {
       await sharedPreferences?.remove(CacheManagerKey.loginSaveData.name);
     }
   }
+
+  Future<void> setProcessStatus({required bool status}) async {
+    await sharedPreferences?.setBool(
+        CacheManagerKey.setProcessStatus.name, status);
+  }
+
+  Future<bool> getProcessStatus() async {
+    bool processStatus =
+        sharedPreferences?.getBool(CacheManagerKey.setProcessStatus.name) ??
+            false;
+    return processStatus;
+  }
 }

@@ -149,19 +149,8 @@ class _HomePagesBuilder extends StatelessWidget {
                                   location: initial?.city ?? "",
                                   rating: (initial?.rating ?? "0.0").toString(),
                                   onTap: () {
-                                    var restaurantID = initial?.id;
-                                    DetailPages(
-                                      restaurantID: restaurantID,
-                                    );
-
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => DetailPages(
-                                          restaurantID: restaurantID,
-                                        ),
-                                      ),
-                                    );
+                                    controller.gotoDetail(
+                                        context, initial ?? Restaurant());
                                   },
                                   isFavorite: initial?.id == isFavoriteData?.id,
                                   onFavoriteTap: () {
