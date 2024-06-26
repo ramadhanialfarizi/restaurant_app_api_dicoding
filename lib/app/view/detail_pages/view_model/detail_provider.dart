@@ -106,6 +106,7 @@ class DetailProvider extends ChangeNotifier with CacheManager {
     }
 
     setProcessStatus(status: true);
+    setNeedRefresh(status: true);
   }
 
   deleteFavorites(String id) async {

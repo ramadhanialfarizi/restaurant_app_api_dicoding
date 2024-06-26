@@ -64,6 +64,7 @@ class FavoritePageProvider extends ChangeNotifier with CacheManager {
           getAllFavoriteData();
           setProcessStatus(status: false);
         }
+        setNeedRefresh(status: false);
       },
     );
   }

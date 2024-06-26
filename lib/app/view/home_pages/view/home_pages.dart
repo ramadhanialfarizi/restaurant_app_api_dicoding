@@ -60,7 +60,7 @@ class _HomePagesBuilder extends StatelessWidget {
     return Consumer<HomeProvider>(
       builder: (context, homeController, child) {
         if (homeController.screenKey == ScreenKey.homeScreen.name) {
-          return homeWidget(controller);
+          return homeWidget(controller, context);
         } else if (homeController.screenKey == ScreenKey.favoriteScreen.name) {
           return const FavoritePage();
         } else {
@@ -70,7 +70,7 @@ class _HomePagesBuilder extends StatelessWidget {
     );
   }
 
-  homeWidget(HomeProvider controller) {
+  homeWidget(HomeProvider controller, context) {
     return RefreshIndicator(
       onRefresh: () async {
         controller.doRefresh();
@@ -117,7 +117,11 @@ class _HomePagesBuilder extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const SearchButton(),
+                SearchButton(
+                  onTap: () {
+                    controller.gotoSearch(context);
+                  },
+                ),
                 const SizedBox(
                   height: 40,
                 ),

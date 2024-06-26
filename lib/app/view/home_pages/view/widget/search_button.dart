@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app_api_dicoding/app/view/search_pages/view/search_pages.dart';
 
 class SearchButton extends StatelessWidget {
-  const SearchButton({super.key});
+  const SearchButton({super.key, required this.onTap});
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, SearchPages.routes);
-      },
+      onTap: onTap,
       child: Container(
         width: double.infinity,
         height: 50,

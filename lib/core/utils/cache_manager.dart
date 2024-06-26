@@ -45,4 +45,16 @@ mixin CacheManager {
             false;
     return processStatus;
   }
+
+  Future<void> setNeedRefresh({required bool status}) async {
+    await sharedPreferences?.setBool(
+        CacheManagerKey.setNeedRefresh.name, status);
+  }
+
+  Future<bool> getNeedRefresh() async {
+    bool needRefresh =
+        sharedPreferences?.getBool(CacheManagerKey.setNeedRefresh.name) ??
+            false;
+    return needRefresh;
+  }
 }
