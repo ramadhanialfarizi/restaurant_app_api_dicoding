@@ -49,13 +49,28 @@ class _SetttingPagesBuilder extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Expanded(
-                child: Text(
-                  'Notification',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                  ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Notification',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17,
+                      ),
+                    ),
+                    Consumer<SettingsPageProvider>(
+                      builder: (context, value, child) {
+                        return Text(
+                          value.notificationActive ? 'enable' : 'disable',
+                          style: const TextStyle(
+                            color: Colors.grey,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
               Consumer<SettingsPageProvider>(
