@@ -64,7 +64,7 @@ class _FavoritePageBuilder extends StatelessWidget {
                   return Container(
                     height: Constant.getFullHeight(context) * 0.80,
                     child: ListView.builder(
-                      // physics: const AlwaysScrollableScrollPhysics(),
+                      padding: const EdgeInsets.only(bottom: 100),
                       itemCount: viewRender.favoriteRestaurantList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
