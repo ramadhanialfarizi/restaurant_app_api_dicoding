@@ -143,10 +143,10 @@ class _HomePagesBuilder extends StatelessWidget {
                       return ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: restaurant.restoList?.restaurants.length,
+                        itemCount: restaurant.restoList?.restaurants?.length,
                         itemBuilder: (context, index) {
                           var initial =
-                              restaurant.restoList?.restaurants[index];
+                              restaurant.restoList?.restaurants?[index];
 
                           return FutureBuilder(
                               future: controller

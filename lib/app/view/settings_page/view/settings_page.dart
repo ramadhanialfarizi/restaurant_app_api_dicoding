@@ -63,7 +63,7 @@ class _SetttingPagesBuilder extends StatelessWidget {
                   return Switch(
                     value: value.notificationActive,
                     onChanged: (status) {
-                      value.setNotificationSettings(status);
+                      value.setNotificationSettings(status, context);
                     },
                     activeColor: ColorsConstant.primaryColors,
                   );

@@ -68,7 +68,7 @@ class HomeProvider extends ChangeNotifier with CacheManager {
     try {
       final source = await remoteDataSource.getRestaurantList();
       notifyListeners();
-      if (source!.restaurants.isEmpty) {
+      if ((source!.restaurants ?? []).isEmpty) {
         _state = ResultState.noData;
         _message = 'Empty Data';
         notifyListeners();

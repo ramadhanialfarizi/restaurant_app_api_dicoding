@@ -57,4 +57,16 @@ mixin CacheManager {
             false;
     return needRefresh;
   }
+
+  Future<void> setNotificationStatus({required bool status}) async {
+    await sharedPreferences?.setBool(
+        CacheManagerKey.notificationStatus.name, status);
+  }
+
+  Future<bool> getNotificationStatus() async {
+    bool notificationStatus =
+        sharedPreferences?.getBool(CacheManagerKey.notificationStatus.name) ??
+            false;
+    return notificationStatus;
+  }
 }

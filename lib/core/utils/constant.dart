@@ -7,6 +7,7 @@ enum CacheManagerKey {
   emailName,
   setProcessStatus,
   setNeedRefresh,
+  notificationStatus,
 }
 
 enum ScreenKey {
