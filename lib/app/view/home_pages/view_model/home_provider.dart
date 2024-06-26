@@ -149,6 +149,15 @@ class HomeProvider extends ChangeNotifier with CacheManager {
     }
   }
 
+  gotoSettings(context) {
+    if (screenKey != ScreenKey.settingsScreen.name) {
+      screenKey = ScreenKey.settingsScreen.name;
+      notifyListeners();
+
+      Navigator.pop(context);
+    }
+  }
+
   gotoDetail(context, Restaurant data) {
     var restaurantID = data.id;
 

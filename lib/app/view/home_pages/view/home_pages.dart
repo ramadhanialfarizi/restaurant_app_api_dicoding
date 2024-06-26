@@ -6,6 +6,7 @@ import 'package:restaurant_app_api_dicoding/app/view/favorites_pages/view/favori
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/restaurant_list_model.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/view/widget/sidebar.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/view_model/home_provider.dart';
+import 'package:restaurant_app_api_dicoding/app/view/settings_page/view/settings_page.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/card_item.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/empty_data.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/error.dart';
@@ -49,6 +50,9 @@ class _HomePagesBuilder extends StatelessWidget {
               onHomePress: () {
                 _controller.gotoHome(context);
               },
+              onSettingsPress: () {
+                _controller.gotoSettings(context);
+              },
             );
           },
         ),
@@ -61,11 +65,15 @@ class _HomePagesBuilder extends StatelessWidget {
       builder: (context, homeController, child) {
         if (homeController.screenKey == ScreenKey.homeScreen.name) {
           return homeWidget(controller, context);
-        } else if (homeController.screenKey == ScreenKey.favoriteScreen.name) {
-          return const FavoritePage();
-        } else {
-          return const SizedBox();
         }
+        if (homeController.screenKey == ScreenKey.favoriteScreen.name) {
+          return const FavoritePage();
+        }
+        if (homeController.screenKey == ScreenKey.settingsScreen.name) {
+          return const SettingPages();
+        }
+
+        return const SizedBox();
       },
     );
   }

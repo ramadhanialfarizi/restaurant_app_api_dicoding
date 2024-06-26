@@ -10,6 +10,7 @@ class Sidebar extends StatelessWidget {
     required this.onFavoritePress,
     required this.onHomePress,
     this.screenKey,
+    required this.onSettingsPress,
   });
 
   final String? username;
@@ -17,6 +18,7 @@ class Sidebar extends StatelessWidget {
   final VoidCallback onLogoutPress;
   final VoidCallback onFavoritePress;
   final VoidCallback onHomePress;
+  final VoidCallback onSettingsPress;
 
   // SharedPreferences? loginData;
   @override
@@ -75,7 +77,7 @@ class Sidebar extends StatelessWidget {
                             ? Colors.grey
                             : Colors.black),
                   ),
-                  onTap: () {},
+                  onTap: onSettingsPress,
                 ),
               ],
             ),
