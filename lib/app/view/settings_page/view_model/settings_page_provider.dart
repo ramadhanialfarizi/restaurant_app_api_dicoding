@@ -29,11 +29,22 @@ class SettingsPageProvider extends ChangeNotifier with CacheManager {
       if (notificationActive) {
         notifyListeners();
         LogUtility.writeLog("notification actived");
+        // USE THIS IN PROD / DEV
+        // return await AndroidAlarmManager.periodic(
+        //   const Duration(hours: 24),
+        //   1,
+        //   BackgroundProcessHelpers.callback,
+        //   startAt: DateTimeHelper.format(),
+        //   exact: true,
+        //   wakeup: true,
+        // );
+
+        // REMOVE THIS AFTER TESTING
         return await AndroidAlarmManager.periodic(
-          const Duration(hours: 24),
+          const Duration(seconds: 1),
           1,
           BackgroundProcessHelpers.callback,
-          startAt: DateTimeHelper.format(),
+          startAt: DateTime.now(),
           exact: true,
           wakeup: true,
         );

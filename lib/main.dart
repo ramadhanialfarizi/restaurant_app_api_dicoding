@@ -35,6 +35,8 @@ void main() async {
     await AndroidAlarmManager.initialize();
   }
   await _notificationHelper.initNotifications(flutterLocalNotificationsPlugin);
+  _notificationHelper
+      .requestAndroidPermissions(flutterLocalNotificationsPlugin);
 
   runApp(
     const MyApp(),

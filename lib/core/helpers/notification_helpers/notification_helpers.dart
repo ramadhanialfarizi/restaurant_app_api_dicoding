@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_package/flutter_package.dart';
+import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view/detail_pages.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/restaurant_list_model.dart';
 import 'package:rxdart/subjects.dart';
 
@@ -42,32 +43,48 @@ class NotificationHelpers {
     });
   }
 
+  void requestAndroidPermissions(
+      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) {
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestExactAlarmsPermission();
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
+  }
+
   Future<void> showNotification(
       FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
       RestaurantListModel restaurantList) async {
-    var channelId = "1";
-    var channelName = "channel_01";
-    var channelDescription = "dicoding news channel";
+    try {
+      var channelId = "1";
+      var channelName = "channel_01";
+      var channelDescription = "restaurant channel";
 
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        channelId, channelName,
-        channelDescription: channelDescription,
-        importance: Importance.max,
-        priority: Priority.high,
-        ticker: 'ticker',
-        styleInformation: const DefaultStyleInformation(true, true));
+      var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+          channelId, channelName,
+          channelDescription: channelDescription,
+          importance: Importance.max,
+          priority: Priority.high,
+          ticker: 'ticker',
+          styleInformation: const DefaultStyleInformation(true, true));
 
-    var iOSPlatformChannelSpecifics = const DarwinNotificationDetails();
-    var platformChannelSpecifics = NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+      var iOSPlatformChannelSpecifics = const DarwinNotificationDetails();
+      var platformChannelSpecifics = NotificationDetails(
+          android: androidPlatformChannelSpecifics,
+          iOS: iOSPlatformChannelSpecifics);
 
-    var titleNotification = "<b>Headline News</b>";
-    var titleNews = restaurantList.restaurants?[0].name;
+      var titleNotification = "<b>Restaurant App</b>";
+      var titleRestaurant = restaurantList.restaurants?[0].name;
 
-    await flutterLocalNotificationsPlugin.show(
-        0, titleNotification, titleNews, platformChannelSpecifics,
-        payload: json.encode(restaurantList.toJson()));
+      await flutterLocalNotificationsPlugin.show(
+          0, titleNotification, titleRestaurant, platformChannelSpecifics,
+          payload: json.encode(restaurantList.toJson()));
+    } catch (e) {
+      LogUtility.writeLog("notif error : $e");
+    }
   }
 
   void configureSelectNotificationSubject(String route, context) {
@@ -77,7 +94,17 @@ class NotificationHelpers {
         var restaurantData = data.restaurants?[0];
         // Navigation.intentWithData(route, article);
 
-        Navigator.of(context).pushNamed(route, arguments: restaurantData);
+        // Navigator.of(context).pushNamed(route, arguments: restaurantData);
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailPages(
+              restaurantID: restaurantData?.id,
+              restaurantData: restaurantData,
+            ),
+          ),
+        );
       },
     );
   }
