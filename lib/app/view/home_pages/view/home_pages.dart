@@ -22,7 +22,7 @@ class HomePages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => HomeProvider(),
+      create: (_) => HomeProvider(context: context),
       child: const _HomePagesBuilder(),
     );
   }

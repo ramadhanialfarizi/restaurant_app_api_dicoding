@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_package/flutter_package.dart';
 import 'package:restaurant_app_api_dicoding/app/source/data_source/remote_data_source.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/view/signin_page.dart';
@@ -8,6 +9,7 @@ import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/restaurant
 import 'package:restaurant_app_api_dicoding/app/view/search_pages/view/search_pages.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/warning_popup.dart';
 import 'package:restaurant_app_api_dicoding/core/helpers/authentication_helpers/auth_helpers.dart';
+import 'package:restaurant_app_api_dicoding/core/helpers/notification_helpers/notification_helpers.dart';
 import 'package:restaurant_app_api_dicoding/core/utils/cache_manager.dart';
 import 'package:restaurant_app_api_dicoding/main.dart';
 
@@ -15,6 +17,8 @@ import '../../../../core/utils/constant.dart';
 
 class HomeProvider extends ChangeNotifier with CacheManager {
   final RemoteDataSource remoteDataSource = RemoteDataSource();
+
+  BuildContext context;
 
   RestaurantListModel? _restaurantList;
   ResultState? _state;
@@ -31,8 +35,19 @@ class HomeProvider extends ChangeNotifier with CacheManager {
 
   List<Restaurant> listRestaurantLocal = [];
 
-  HomeProvider() {
+  // FOR NOTIFICATION
+  final NotificationHelpers _notificationHelper = NotificationHelpers();
+
+  @override
+  void dispose() {
+    selectNotificationSubject.close();
+    super.dispose();
+  }
+
+  HomeProvider({required this.context}) {
     initData();
+    _notificationHelper.configureSelectNotificationSubject(
+        DetailPages.routes, context);
   }
 
   initData() async {
