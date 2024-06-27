@@ -9,7 +9,9 @@ class SettingPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => SettingsPageProvider(),
+      create: (context) => SettingsPageProvider(
+        context: context,
+      ),
       child: const _SetttingPagesBuilder(),
     );
   }
@@ -78,7 +80,7 @@ class _SetttingPagesBuilder extends StatelessWidget {
                   return Switch(
                     value: value.notificationActive,
                     onChanged: (status) {
-                      value.setNotificationSettings(status, context);
+                      value.setNotificationSettings(status);
                     },
                     activeColor: ColorsConstant.primaryColors,
                   );

@@ -11,16 +11,20 @@ import 'package:restaurant_app_api_dicoding/core/utils/cache_manager.dart';
 class SettingsPageProvider extends ChangeNotifier with CacheManager {
   bool notificationActive = false;
 
-  SettingsPageProvider() {
+  BuildContext context;
+
+  SettingsPageProvider({required this.context}) {
     initData();
   }
 
   void initData() async {
     notificationActive = await getNotificationStatus();
     notifyListeners();
+
+    setNotificationSettings(notificationActive);
   }
 
-  setNotificationSettings(bool status, context) async {
+  setNotificationSettings(bool status) async {
     if (Platform.isAndroid) {
       notificationActive = status;
       notifyListeners();
@@ -30,24 +34,24 @@ class SettingsPageProvider extends ChangeNotifier with CacheManager {
         notifyListeners();
         LogUtility.writeLog("notification actived");
         // USE THIS IN PROD / DEV
-        // return await AndroidAlarmManager.periodic(
-        //   const Duration(hours: 24),
-        //   1,
-        //   BackgroundProcessHelpers.callback,
-        //   startAt: DateTimeHelper.format(),
-        //   exact: true,
-        //   wakeup: true,
-        // );
-
-        // REMOVE THIS AFTER TESTING
         return await AndroidAlarmManager.periodic(
-          const Duration(seconds: 1),
+          const Duration(hours: 24),
           1,
           BackgroundProcessHelpers.callback,
-          startAt: DateTime.now(),
+          startAt: DateTimeHelper.format(),
           exact: true,
           wakeup: true,
         );
+
+        // REMOVE THIS AFTER TESTING
+        // return await AndroidAlarmManager.periodic(
+        //   const Duration(milliseconds: 50),
+        //   1,
+        //   BackgroundProcessHelpers.callback,
+        //   startAt: DateTime.now(),
+        //   exact: true,
+        //   wakeup: true,
+        // );
       } else {
         LogUtility.writeLog("notification unactived");
         notifyListeners();
