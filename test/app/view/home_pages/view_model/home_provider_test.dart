@@ -1,12 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/view_model/home_provider.dart';
-import 'package:restaurant_app_api_dicoding/core/utils/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'cache_manager_test.dart';
 import 'home_provider_test.mocks.dart';
 
 @GenerateMocks([SharedPreferences])
