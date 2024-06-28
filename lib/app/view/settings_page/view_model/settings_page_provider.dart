@@ -18,45 +18,16 @@ class SettingsPageProvider extends ChangeNotifier with CacheManager {
   }
 
   void initData() async {
-    notificationActive = await getNotificationStatus();
-    notifyListeners();
-
-    setNotificationSettings(notificationActive);
+    if (Platform.isAndroid) {
+      notificationActive = await getNotificationStatus();
+      notifyListeners();
+      setNotificationSettings(notificationActive);
+    }
   }
 
-  setNotificationSettings(bool status) async {
+  doActiveNotification(bool status) {
     if (Platform.isAndroid) {
-      notificationActive = status;
-      notifyListeners();
-
-      setNotificationStatus(status: notificationActive);
-      if (notificationActive) {
-        notifyListeners();
-        LogUtility.writeLog("notification actived");
-        // USE THIS IN PROD / DEV
-        return await AndroidAlarmManager.periodic(
-          const Duration(hours: 24),
-          1,
-          BackgroundProcessHelpers.callback,
-          startAt: DateTimeHelper.format(),
-          exact: true,
-          wakeup: true,
-        );
-
-        // REMOVE THIS AFTER TESTING
-        // return await AndroidAlarmManager.periodic(
-        //   const Duration(milliseconds: 50),
-        //   1,
-        //   BackgroundProcessHelpers.callback,
-        //   startAt: DateTime.now(),
-        //   exact: true,
-        //   wakeup: true,
-        // );
-      } else {
-        LogUtility.writeLog("notification unactived");
-        notifyListeners();
-        return await AndroidAlarmManager.cancel(1);
-      }
+      setNotificationSettings(status);
     } else {
       showDialog(
         context: context,
@@ -67,6 +38,40 @@ class SettingsPageProvider extends ChangeNotifier with CacheManager {
           );
         },
       );
+    }
+  }
+
+  setNotificationSettings(bool status) async {
+    notificationActive = status;
+    notifyListeners();
+
+    setNotificationStatus(status: notificationActive);
+    if (notificationActive) {
+      notifyListeners();
+      LogUtility.writeLog("notification actived");
+      // USE THIS IN PROD / DEV
+      return await AndroidAlarmManager.periodic(
+        const Duration(hours: 24),
+        1,
+        BackgroundProcessHelpers.callback,
+        startAt: DateTimeHelper.format(),
+        exact: true,
+        wakeup: true,
+      );
+
+      // REMOVE THIS AFTER TESTING
+      // return await AndroidAlarmManager.periodic(
+      //   const Duration(milliseconds: 50),
+      //   1,
+      //   BackgroundProcessHelpers.callback,
+      //   startAt: DateTime.now(),
+      //   exact: true,
+      //   wakeup: true,
+      // );
+    } else {
+      LogUtility.writeLog("notification unactived");
+      notifyListeners();
+      return await AndroidAlarmManager.cancel(1);
     }
   }
 }
