@@ -18,7 +18,7 @@ import '../../../../core/utils/constant.dart';
 class HomeProvider extends ChangeNotifier with CacheManager {
   final RemoteDataSource remoteDataSource = RemoteDataSource();
 
-  BuildContext context;
+  BuildContext? context;
 
   RestaurantListModel? _restaurantList;
   ResultState? _state;
@@ -44,7 +44,7 @@ class HomeProvider extends ChangeNotifier with CacheManager {
     super.dispose();
   }
 
-  HomeProvider({required this.context}) {
+  HomeProvider({this.context}) {
     initData();
     _notificationHelper.configureSelectNotificationSubject(
         DetailPages.routes, context);
