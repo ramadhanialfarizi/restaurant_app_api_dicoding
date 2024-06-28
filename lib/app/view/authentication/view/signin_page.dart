@@ -48,10 +48,15 @@ class _SigninBuilder extends StatelessWidget {
                     const SizedBox(
                       height: 19,
                     ),
-                    const Text(
-                      'Hi, Selamat Datang kembali :)',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    GestureDetector(
+                      onLongPress: () {
+                        controller.gotoDebugMode(context);
+                      },
+                      child: const Text(
+                        'Hi, Selamat Datang kembali :)',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
                     ),
                     const SizedBox(
                       height: 45,

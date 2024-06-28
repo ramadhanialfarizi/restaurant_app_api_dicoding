@@ -55,7 +55,7 @@ class _HomePagesBuilder extends StatelessWidget {
             );
           },
         ),
-        appBar: AppBar(),
+        appBar: BaseAppBar.baseAppBar(context),
         body: getWidget(_controller));
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/model/signin/signin_request_model.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/model/signin/signin_response_model.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/view/signup_page.dart';
+import 'package:restaurant_app_api_dicoding/app/view/debug_pages/view/debug_pages.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/view/home_pages.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/warning_popup.dart';
 import 'package:restaurant_app_api_dicoding/core/helpers/authentication_helpers/auth_helpers.dart';
@@ -67,5 +68,9 @@ class AuthProvider extends ChangeNotifier with CacheManager {
 
   void goToSignup(context) {
     Navigator.of(context).pushNamed(SignupPage.routes);
+  }
+
+  void gotoDebugMode(context) {
+    Navigator.of(context).pushNamed(DebugPages.routes);
   }
 }

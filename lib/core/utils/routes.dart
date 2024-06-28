@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/view/signin_page.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/view/signup_page.dart';
+import 'package:restaurant_app_api_dicoding/app/view/debug_pages/view/debug_pages.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view/detail_pages.dart';
 import 'package:restaurant_app_api_dicoding/app/view/onboarding/view/splash_screen.dart';
 import 'package:restaurant_app_api_dicoding/app/view/search_pages/view/search_pages.dart';
@@ -28,6 +29,9 @@ class AppRoutes {
       case SignupPage.routes:
         return CupertinoPageRoute(
             builder: (_) => const SignupPage(), settings: settings);
+      case DebugPages.routes:
+        return CupertinoPageRoute(
+            builder: (context) => const DebugPages(), settings: settings);
     }
     return null;
   }
