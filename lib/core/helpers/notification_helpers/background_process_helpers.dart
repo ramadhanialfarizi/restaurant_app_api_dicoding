@@ -28,6 +28,7 @@ class BackgroundProcessHelpers {
     );
   }
 
+  @pragma('vm:entry-point')
   static Future<void> callback() async {
     LogUtility.writeLog('Alarm fired!');
     final NotificationHelpers notificationHelper = NotificationHelpers();
