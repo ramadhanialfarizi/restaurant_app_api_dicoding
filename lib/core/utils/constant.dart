@@ -8,6 +8,7 @@ enum CacheManagerKey {
   setProcessStatus,
   setNeedRefresh,
   notificationStatus,
+  notificationIndex,
 }
 
 enum ScreenKey {

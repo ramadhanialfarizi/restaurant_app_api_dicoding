@@ -69,4 +69,16 @@ mixin CacheManager {
             false;
     return notificationStatus;
   }
+
+  Future<void> setNotificationIndex(int index) async {
+    await sharedPreferences?.setInt(
+        CacheManagerKey.notificationIndex.name, index);
+  }
+
+  Future<int> getNotificationIndex() async {
+    int notifIndex =
+        sharedPreferences?.getInt(CacheManagerKey.notificationIndex.name) ?? 0;
+
+    return notifIndex;
+  }
 }

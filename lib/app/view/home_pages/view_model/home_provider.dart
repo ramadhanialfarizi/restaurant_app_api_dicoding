@@ -46,8 +46,15 @@ class HomeProvider extends ChangeNotifier with CacheManager {
 
   HomeProvider({this.context}) {
     initData();
+    // _notificationHelper.configureSelectNotificationSubject(
+    //     DetailPages.routes, context);
+    initNotifNavigate();
+  }
+
+  initNotifNavigate() async {
+    int indexNotif = await getNotificationIndex();
     _notificationHelper.configureSelectNotificationSubject(
-        DetailPages.routes, context);
+        DetailPages.routes, indexNotif, context);
   }
 
   initData() async {

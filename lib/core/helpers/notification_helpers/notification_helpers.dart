@@ -6,15 +6,14 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_package/flutter_package.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view/detail_pages.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/restaurant_list_model.dart';
+import 'package:restaurant_app_api_dicoding/core/utils/cache_manager.dart';
 import 'package:rxdart/subjects.dart';
 
 // JUST INIT ON ANDROID
 final selectNotificationSubject = BehaviorSubject<String>();
 
-class NotificationHelpers {
+class NotificationHelpers with CacheManager {
   static NotificationHelpers? _instance;
-
-  int randomIndex = 0;
 
   NotificationHelpers._internal() {
     _instance = this;
@@ -80,22 +79,29 @@ class NotificationHelpers {
           iOS: iOSPlatformChannelSpecifics);
 
       var titleNotification = "<b>Top Recomended For You</b>";
-      randomIndex = Random().nextInt((restaurantList.restaurants ?? []).length);
+      int randomIndex =
+          Random().nextInt((restaurantList.restaurants ?? []).length);
+
       var titleRestaurant = restaurantList.restaurants?[randomIndex].name;
 
       await flutterLocalNotificationsPlugin.show(
           0, titleNotification, titleRestaurant, platformChannelSpecifics,
           payload: json.encode(restaurantList.toJson()));
+
+      await setNotificationIndex(randomIndex);
     } catch (e) {
       LogUtility.writeLog("notif error : $e");
     }
   }
 
-  void configureSelectNotificationSubject(String route, context) {
+  void configureSelectNotificationSubject(
+      String route, int index, context) async {
+    // int randomIndex = await getNotificationIndex();
+
     selectNotificationSubject.stream.listen(
       (String payload) async {
         var data = RestaurantListModel.fromJson(json.decode(payload));
-        var restaurantData = data.restaurants?[randomIndex];
+        var restaurantData = data.restaurants?[index];
         // Navigation.intentWithData(route, article);
 
         // Navigator.of(context).pushNamed(route, arguments: restaurantData);
