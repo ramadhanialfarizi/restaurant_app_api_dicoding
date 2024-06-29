@@ -96,15 +96,10 @@ class NotificationHelpers with CacheManager {
 
   void configureSelectNotificationSubject(
       String route, int index, context) async {
-    // int randomIndex = await getNotificationIndex();
-
     selectNotificationSubject.stream.listen(
       (String payload) async {
         var data = RestaurantListModel.fromJson(json.decode(payload));
         var restaurantData = data.restaurants?[index];
-        // Navigation.intentWithData(route, article);
-
-        // Navigator.of(context).pushNamed(route, arguments: restaurantData);
 
         Navigator.push(
           context,
