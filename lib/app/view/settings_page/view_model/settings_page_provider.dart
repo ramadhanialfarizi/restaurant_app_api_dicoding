@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_package/flutter_package.dart';
+import 'package:restaurant_app_api_dicoding/core/global_widget/logger_utility.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/warning_popup.dart';
 import 'package:restaurant_app_api_dicoding/core/helpers/date_time_helper/date_time_helper.dart';
 import 'package:restaurant_app_api_dicoding/core/helpers/notification_helpers/background_process_helpers.dart';

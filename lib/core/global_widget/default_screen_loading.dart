@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_package/flutter_package.dart';
+import 'package:restaurant_app_api_dicoding/core/global_widget/base_widget_container.dart';
 import 'package:restaurant_app_api_dicoding/core/utils/colors_constant.dart';
 
 class DefaultScreenLoading extends StatelessWidget {

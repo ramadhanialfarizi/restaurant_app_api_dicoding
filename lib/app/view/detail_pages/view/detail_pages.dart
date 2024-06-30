@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_package/flutter_package.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view_model/detail_provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/restaurant_list_model.dart';
+import 'package:restaurant_app_api_dicoding/core/global_widget/base_widget_container.dart';
 import 'package:restaurant_app_api_dicoding/core/utils/colors_constant.dart';
 import 'package:restaurant_app_api_dicoding/core/utils/constant.dart';
 

@@ -1,6 +1,6 @@
-import 'package:flutter_package/flutter_package.dart';
 import 'package:path/path.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/restaurant_list_model.dart';
+import 'package:restaurant_app_api_dicoding/core/global_widget/logger_utility.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {

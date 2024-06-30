@@ -1,9 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_package/flutter_package.dart';
+
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_api_dicoding/app/view/debug_pages/view_model/debug_pages_provider.dart';
+import 'package:restaurant_app_api_dicoding/core/global_widget/base_app_bar.dart';
+import 'package:restaurant_app_api_dicoding/core/global_widget/base_widget_container.dart';
 import 'package:restaurant_app_api_dicoding/core/utils/colors_constant.dart';
 
 class DebugPages extends StatelessWidget {

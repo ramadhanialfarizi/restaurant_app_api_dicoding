@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_package/flutter_package.dart';
+
 import 'package:restaurant_app_api_dicoding/app/source/data_source/remote_data_source.dart';
 import 'package:restaurant_app_api_dicoding/app/view/authentication/view/signin_page.dart';
 import 'package:restaurant_app_api_dicoding/app/view/detail_pages/view/detail_pages.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/authlogout_response_model.dart';
 import 'package:restaurant_app_api_dicoding/app/view/home_pages/model/restaurant_list_model.dart';
 import 'package:restaurant_app_api_dicoding/app/view/search_pages/view/search_pages.dart';
+import 'package:restaurant_app_api_dicoding/core/global_widget/logger_utility.dart';
 import 'package:restaurant_app_api_dicoding/core/global_widget/warning_popup.dart';
 import 'package:restaurant_app_api_dicoding/core/helpers/authentication_helpers/auth_helpers.dart';
 import 'package:restaurant_app_api_dicoding/core/helpers/notification_helpers/notification_helpers.dart';
